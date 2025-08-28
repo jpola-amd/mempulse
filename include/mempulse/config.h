@@ -44,19 +44,17 @@
     #define MEMPULSE_UNUSED
 #endif
 
-// Debug build detection
 #ifdef NDEBUG
     #define MEMPULSE_DEBUG 0
 #else
     #define MEMPULSE_DEBUG 1
 #endif
 
-// Feature availability
 #if MEMPULSE_PLATFORM_WINDOWS
-    #define MEMPULSE_HAS_DXGI 1
+    #define MEMPULSE_HAS_D3DKMT 1
     #define MEMPULSE_HAS_HIP_MEMORY_BUDGET 0
 #else
-    #define MEMPULSE_HAS_DXGI 0
+    #define MEMPULSE_HAS_D3DKMT 0
     #define MEMPULSE_HAS_HIP_MEMORY_BUDGET 1
 #endif
 
@@ -69,13 +67,3 @@
     #define MEMPULSE_LOG_DEBUG(msg) ((void)0)
     #define MEMPULSE_LOG_ERROR(msg) ((void)0)
 #endif
-
-// Memory alignment
-#define MEMPULSE_MEMORY_ALIGNMENT 64
-
-// Maximum number of devices to support
-#define MEMPULSE_MAX_DEVICES 16
-
-// Buffer sizes
-#define MEMPULSE_MAX_DEVICE_NAME_LENGTH 256
-#define MEMPULSE_MAX_PCI_BUS_ID_LENGTH 32

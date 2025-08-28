@@ -15,8 +15,8 @@ public:
      * @param hipDeviceId The HIP device ID to create a reporter for
      * @return Pointer to MemoryReporter instance, nullptr on failure
      */
-    static std::unique_ptr<MemoryReporter> CreateMemoryReporter(int hipDeviceId);
-    
+    static std::unique_ptr<MemoryReporter> CreateMemoryReporter(int hipDeviceId, bool overrideD3DKMTwithHIP = false);
+
     /**
      * Get the number of available HIP devices
      * @return Number of HIP devices

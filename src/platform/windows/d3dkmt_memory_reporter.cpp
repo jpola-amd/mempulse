@@ -1,43 +1,11 @@
 #include "d3dkmt_memory_reporter.h"
-#include "../../utils/pci_utils.h"
 #include <d3dkmthk.h>
 #include <winternl.h> 
 #pragma comment(lib, "gdi32.lib")
 
-#include <cassert>
-#define assert_with_message(condition, message) \
-    ((condition) ? static_cast<void>(0) : [&]{ std::cerr << "Assertion failed: " << message << std::endl; assert(false); }())
-
-
+#include "../../assert.h"
 
 namespace mempulse {
-
-
-
-// std::string PciBusInfo::ToString() const {
-//     return "Domain: " + std::to_string(domain) +
-//            ", Bus: " + std::to_string(bus) +
-//            ", Device: " + std::to_string(device) +
-//            ", Function: " + std::to_string(function);
-// }
-
-// static PciBusInfo ParseHipPciBusId(int pciBusId) {
-//     PciBusInfo busInfo;
-
-//     // Extract PCI components from integer representation
-//     // This format may vary by HIP implementation, but commonly:
-//     // bits 0-7: function and device
-//     // bits 8-15: bus
-//     // bits 16-31: domain (if present)
-
-//     busInfo.function = pciBusId & 0x7;
-//     busInfo.device = (pciBusId >> 3) & 0x1F;
-//     busInfo.bus = (pciBusId >> 8) & 0xFF;
-//     busInfo.domain = (pciBusId >> 16) & 0xFFFF;
-
-//     return busInfo;
-// }
-
  
 static bool QuerySegmentGroupUsage(LUID luid, D3DKMT_MEMORY_SEGMENT_GROUP group, D3DKMT_QUERYSTATISTICS_MEMORY_USAGE& usageInfo) {
     D3DKMT_QUERYSTATISTICS stats = {};
@@ -67,7 +35,7 @@ D3DKMTMemoryReporter::D3DKMTMemoryReporter(int hipDeviceId, bool isIntegrated, L
 
 bool D3DKMTMemoryReporter::Initialize() {
     if (m_initialized) {
-        return true; // Already initialized
+        return true;
     }
     m_initialized = true;
     return true;
