@@ -1,0 +1,342 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 16,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "windows-debug",
+            "displayName": "Windows Debug",
+            "description": "Debug configuration for Windows using Visual Studio",
+            "generator": "Visual Studio 17 2022",
+            "architecture": "x64",
+            "binaryDir": "${sourceDir}/build/windows-debug",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/windows-debug"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": ["Windows"]
+                }
+            }
+        },
+        {
+            "name": "windows-release",
+            "displayName": "Windows Release",
+            "description": "Release configuration for Windows using Visual Studio",
+            "generator": "Visual Studio 17 2022",
+            "architecture": "x64",
+            "binaryDir": "${sourceDir}/build/windows-release",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/windows-release",
+                "CMAKE_CXX_FLAGS_RELEASE": "/O2 /DNDEBUG"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": ["Windows"]
+                }
+            }
+        },
+        {
+            "name": "windows-ninja-debug",
+            "displayName": "Windows Ninja Debug",
+            "description": "Debug configuration for Windows using Ninja generator",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/windows-ninja-debug",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/windows-ninja-debug",
+                "CMAKE_C_COMPILER": "cl",
+                "CMAKE_CXX_COMPILER": "cl"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "environment": {
+                "CC": "cl",
+                "CXX": "cl"
+            }
+        },
+        {
+            "name": "windows-ninja-release",
+            "displayName": "Windows Ninja Release",
+            "description": "Release configuration for Windows using Ninja generator",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/windows-ninja-release",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/windows-ninja-release",
+                "CMAKE_C_COMPILER": "cl",
+                "CMAKE_CXX_COMPILER": "cl",
+                "CMAKE_CXX_FLAGS_RELEASE": "/O2 /DNDEBUG"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "environment": {
+                "CC": "cl",
+                "CXX": "cl"
+            }
+        },
+        {
+            "name": "linux-debug",
+            "displayName": "Linux Debug",
+            "description": "Debug configuration for Linux using GCC",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/linux-debug",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/linux-debug",
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_CXX_FLAGS_DEBUG": "-g -O0 -Wall -Wextra -Wpedantic"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            },
+            "environment": {
+                "CC": "gcc",
+                "CXX": "g++"
+            }
+        },
+        {
+            "name": "linux-release",
+            "displayName": "Linux Release",
+            "description": "Release configuration for Linux using GCC",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/linux-release",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/linux-release",
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG -march=native"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            },
+            "environment": {
+                "CC": "gcc",
+                "CXX": "g++"
+            }
+        },
+        {
+            "name": "linux-ninja-debug",
+            "displayName": "Linux Ninja Debug",
+            "description": "Debug configuration for Linux using Ninja generator",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/linux-ninja-debug",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/linux-ninja-debug",
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_CXX_FLAGS_DEBUG": "-g -O0 -Wall -Wextra -Wpedantic"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            },
+            "environment": {
+                "CC": "gcc",
+                "CXX": "g++"
+            }
+        },
+        {
+            "name": "linux-ninja-release",
+            "displayName": "Linux Ninja Release",
+            "description": "Release configuration for Linux using Ninja generator",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/linux-ninja-release",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/linux-ninja-release",
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG -march=native"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            },
+            "environment": {
+                "CC": "gcc",
+                "CXX": "g++"
+            }
+        },
+        {
+            "name": "linux-clang-debug",
+            "displayName": "Linux Clang Debug",
+            "description": "Debug configuration for Linux using Clang",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/linux-clang-debug",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/linux-clang-debug",
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++",
+                "CMAKE_CXX_FLAGS_DEBUG": "-g -O0 -Wall -Wextra -Wpedantic"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            },
+            "environment": {
+                "CC": "clang",
+                "CXX": "clang++"
+            }
+        },
+        {
+            "name": "linux-clang-release",
+            "displayName": "Linux Clang Release",
+            "description": "Release configuration for Linux using Clang",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/linux-clang-release",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/linux-clang-release",
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++",
+                "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG -march=native"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            },
+            "environment": {
+                "CC": "clang",
+                "CXX": "clang++"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "windows-debug",
+            "displayName": "Windows Debug Build",
+            "configurePreset": "windows-debug",
+            "configuration": "Debug",
+            "jobs": 0
+        },
+        {
+            "name": "windows-release",
+            "displayName": "Windows Release Build",
+            "configurePreset": "windows-release",
+            "configuration": "Release",
+            "jobs": 0
+        },
+        {
+            "name": "windows-ninja-debug",
+            "displayName": "Windows Ninja Debug Build",
+            "configurePreset": "windows-ninja-debug",
+            "jobs": 0
+        },
+        {
+            "name": "windows-ninja-release",
+            "displayName": "Windows Ninja Release Build",
+            "configurePreset": "windows-ninja-release",
+            "jobs": 0
+        },
+        {
+            "name": "linux-debug",
+            "displayName": "Linux Debug Build",
+            "configurePreset": "linux-debug",
+            "jobs": 0
+        },
+        {
+            "name": "linux-release",
+            "displayName": "Linux Release Build",
+            "configurePreset": "linux-release",
+            "jobs": 0
+        },
+        {
+            "name": "linux-ninja-debug",
+            "displayName": "Linux Ninja Debug Build",
+            "configurePreset": "linux-ninja-debug",
+            "jobs": 0
+        },
+        {
+            "name": "linux-ninja-release",
+            "displayName": "Linux Ninja Release Build",
+            "configurePreset": "linux-ninja-release",
+            "jobs": 0
+        },
+        {
+            "name": "linux-clang-debug",
+            "displayName": "Linux Clang Debug Build",
+            "configurePreset": "linux-clang-debug",
+            "jobs": 0
+        },
+        {
+            "name": "linux-clang-release",
+            "displayName": "Linux Clang Release Build",
+            "configurePreset": "linux-clang-release",
+            "jobs": 0
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "windows-debug-test",
+            "displayName": "Windows Debug Tests",
+            "configurePreset": "windows-debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": false
+            }
+        },
+        {
+            "name": "windows-release-test",
+            "displayName": "Windows Release Tests",
+            "configurePreset": "windows-release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": false
+            }
+        },
+        {
+            "name": "linux-debug-test",
+            "displayName": "Linux Debug Tests",
+            "configurePreset": "linux-debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": false
+            }
+        },
+        {
+            "name": "linux-release-test",
+            "displayName": "Linux Release Tests",
+            "configurePreset": "linux-release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": false
+            }
+        }
+    ]
+}
