@@ -4,26 +4,26 @@
 #include <hip/hip_runtime.h>
 
 int main(int argc, char** argv) {
-    // Initialize the mempulse library
     if (!mempulse::Initialize()) {
         std::cerr << "Failed to initialize mempulse library." << std::endl;
         return -1;
     }
 
-    // Get the number of HIP devices
     int deviceCount = mempulse::MemoryReporterFactory::GetDeviceCount();
     if (deviceCount <= 0) {
         std::cerr << "No HIP devices found." << std::endl;
         return -1;
     }
 
-    // Create a memory reporter for the first HIP device
-
     for (int i = 0; i < deviceCount; ++i) {
         
         const int hipDeviceId = i;
-        
-        auto reporter = mempulse::MemoryReporterFactory::CreateMemoryReporter(hipDeviceId);
+        std::cout << "\nQuerying memory for HIP Device ID: " << hipDeviceId << std::endl;
+        hipDeviceProp_t deviceProperties;
+        hipGetDeviceProperties(&deviceProperties, hipDeviceId);
+        std::cout << "Device Name: " << deviceProperties.name << std::endl;
+
+        auto reporter = mempulse::MemoryReporterFactory::CreateMemoryReporter(hipDeviceId, false);
         if (!reporter) {
             std::cerr << "Failed to create memory reporter." << std::endl;
             return -1;
@@ -49,11 +49,9 @@ int main(int argc, char** argv) {
             std::cerr << "Failed to get memory information." << std::endl;
         }
         
-        // Shutdown the reporter
         reporter->ShutDown();
     }
 
-    // Shutdown the mempulse library
     mempulse::Shutdown();
 
     return 0;

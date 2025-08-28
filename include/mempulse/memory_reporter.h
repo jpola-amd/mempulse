@@ -8,11 +8,15 @@ namespace mempulse {
 /**
  * Structure containing GPU memory information
  */
+
 struct MemoryInfo {
+    // on linux only dedicated is reported 
+    // for integrated gpus it account the memory in dedicated section
     uint64_t dedicatedUsed {0};
     uint64_t dedicatedTotal {0};
     uint64_t sharedUsed {0};
     uint64_t sharedTotal {0};
+   
 };
 
 /**
