@@ -10,8 +10,8 @@ namespace mempulse {
  * Initialize MemPulse library
  * Call this before using any other MemPulse functions
  * @return true if initialization was successful
- */    
-bool Initialize();
+ */
+void Initialize();
 
 /**
  * Shutdown MemPulse library

@@ -22,7 +22,7 @@ public:
      * @return Number of HIP devices
      */
     static int GetDeviceCount();
-    
+
     /**
      * Check if HIP is available on the system
      * @return true if HIP is available

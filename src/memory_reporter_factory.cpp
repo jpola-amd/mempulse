@@ -1,8 +1,8 @@
 #include "mempulse/memory_reporter_factory.h"
 #include <hip/hip_runtime.h>
-#include <memory>
 
 #ifdef _WIN32
+	#include <memory>
     #include "platform/windows/d3dkmt_memory_reporter.h"
     #include "platform/linux/hip_memory_reporter.h"
 #else
@@ -18,13 +18,13 @@ std::unique_ptr<MemoryReporter> MemoryReporterFactory::CreateMemoryReporter(int 
     if (err != hipSuccess || hipDeviceId < 0 || hipDeviceId >= deviceCount) {
         return nullptr;
     }
-    
+
     hipDeviceProp_t deviceProperties;
     err = hipGetDeviceProperties(&deviceProperties, hipDeviceId);
     if (err != hipSuccess) {
         return nullptr;
     }
-    std::unique_ptr<MemoryReporter> reporter;    
+    std::unique_ptr<MemoryReporter> reporter;
 
 #ifdef _WIN32
     if (!overrideD3DKMTwithHIP) {
@@ -39,11 +39,7 @@ std::unique_ptr<MemoryReporter> MemoryReporterFactory::CreateMemoryReporter(int 
     reporter = std::make_unique<HipMemoryReporter>(hipDeviceId);
 #endif
 
-    if (reporter && reporter->Initialize()) {
-        return reporter;
-    }
-    
-    return nullptr;
+    return reporter;
 }
 
 int MemoryReporterFactory::GetDeviceCount() {
