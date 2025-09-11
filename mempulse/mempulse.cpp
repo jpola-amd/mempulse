@@ -5,6 +5,7 @@
 #include "Backend.h"
 #include "MempulseContextImpl.h"
 #include "SafeCall.h"
+#include "Logging.h"
 
 #include <string.h>
 
@@ -31,6 +32,14 @@ MempulseError MempulseShutdown(MempulseContext context) {
 	});
 	check(result);
 
+	return MEMPULSE_SUCCESS;
+}
+
+MEMPULSE_API MempulseError MempulseSetLoggingLevel(int level)
+{
+	MEMPULSE_LOG_TRACE();
+
+	MEMPULSE_LOGGING_LEVEL = level;
 	return MEMPULSE_SUCCESS;
 }
 

@@ -88,6 +88,8 @@ MEMPULSE_API MempulseError MempulseInitialize(MempulseContext* context, Mempulse
 
 MEMPULSE_API MempulseError MempulseShutdown(MempulseContext context);
 
+MEMPULSE_API MempulseError MempulseSetLoggingLevel(int level);
+
 MEMPULSE_API const char* MempulseGetVersion();
 
 MEMPULSE_API MempulseError MempulseGetAvailabeDeviceCount(
