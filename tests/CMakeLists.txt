@@ -7,6 +7,7 @@ set(SOURCES
 
 set (TESTS
 	Library
+	Device
 )
 
 foreach(test ${TESTS})

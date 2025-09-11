@@ -11,7 +11,7 @@ TEST_F(TestLibrary, initialization) {
 	err = MempulseInitialize(&context);
 	ASSERT_EQ(err, MEMPULSE_SUCCESS);
 
-	err = MempulseShutdown(&context);
+	err = MempulseShutdown(context);
 	EXPECT_EQ(err, MEMPULSE_SUCCESS);
 }
 

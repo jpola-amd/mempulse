@@ -56,6 +56,8 @@ MempulseError MempulseGetAvailabeDeviceCount(MempulseContext context, int* count
 
 	auto result = safeCall([&] {
 		MempulseContextImpl* ctx = get_ctx(context);
+		if (!count)
+			throw ErrorInvalidParameter("count", "must be not null");
 		*count = ctx->libraryContextHip.GetDeviceCount();
 	});
 	check(result);
