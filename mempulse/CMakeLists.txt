@@ -35,7 +35,7 @@ add_library(mempulse SHARED
 	${SOURCES} 
 	${CMAKE_CURRENT_BINARY_DIR}/version_info.h
     ${CMAKE_CURRENT_BINARY_DIR}/version.rc
-    ${CMAKE_CURRENT_BINARY_DIR}/config.h
+    ${CMAKE_CURRENT_BINARY_DIR}/Config.h
 )
 set_target_properties(mempulse PROPERTIES VERSION ${PROJECT_VERSION})
 

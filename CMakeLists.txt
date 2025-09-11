@@ -7,7 +7,7 @@ set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 
 option(MEMPULSE_EXPORT_API "Export dll symbols" ON)
 option(BUILD_EXAMPLES "Build basic example" OFF)
-option(BUILD_TESTS "Build tests" OFF)
+option(BUILD_TESTS "Build tests" ON)
 option(BUILD_APPLICATION "Build command line application" ON)
 set(HIP_PLATFORM "amd" CACHE STRING "Choose between AMD and NVIDIA")
 
@@ -19,7 +19,6 @@ include("${CMAKE_SOURCE_DIR}/cmake/WindowsFileVersion.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/CopyFileToTarget.cmake")
 
 find_package(HIP REQUIRED CONFIG)
-find_package(Boost REQUIRED COMPONENTS system log program_options)
 
 # Platform-specific libraries
 if(WIN32)
@@ -38,6 +37,7 @@ endif()
 
 add_subdirectory(mempulse)
 if(BUILD_APPLICATION)
+	find_package(Boost REQUIRED COMPONENTS system log program_options)
 	add_subdirectory(application)
 endif()
 if(BUILD_EXAMPLES)

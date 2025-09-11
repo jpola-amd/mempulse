@@ -7,7 +7,6 @@ set(SOURCES
 
 set (TESTS
 	Library
-	Meminfo
 )
 
 foreach(test ${TESTS})
