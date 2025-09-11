@@ -1,0 +1,15 @@
+#pragma once
+
+/**
+ * MemPulse Configuration Header
+ *
+ * This file contains build-time configuration and platform detection
+ */
+
+// Version information
+#define MEMPULSE_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#define MEMPULSE_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#define MEMPULSE_VERSION_PATCH @PROJECT_VERSION_PATCH@
+#define MEMPULSE_VERSION_STRING "@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@"
+
+

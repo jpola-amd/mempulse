@@ -26,3 +26,10 @@ gpus the available shared memory is reported as dedicated memory.
 Small differences may occur due to sampling time, rounding, and how each tool interprets memory states.
 MemPulse provides a detailed breakdown of VRAM usage and availability, closely matching the values shown in Task Manager for dedicated GPU memory.
 
+
+# Build
+
+```
+cmake -DCMAKE_BUILD_TYPE=debug -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ..
+```
+

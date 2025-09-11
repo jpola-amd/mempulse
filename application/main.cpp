@@ -1,46 +1,34 @@
 #include "mempulse/mempulse.h"
+#include <string>
 
-using namespace mempulse;
+#define check(err) if (err != MEMPULSE_SUCCESS) return err;
 
-void process_hip_device(MemoryReporter* reporter)
-{
-	if (!reporter)
-		throw std::runtime_error("reporter is null");
+int main(int /*argc*/, char** /*argv*/) {
+	MempulseError err;
+	MempulseContext context;
 
-	std::cout << "Device Id:\t\t" << reporter->GetDeviceId() << std::endl;
-    std::cout << "Device Name:\t\t" << reporter->GetDeviceName() << std::endl;
+	err = MempulseInitialize(&context);
+	check(err);
 
-    mempulse::MemoryInfo memInfo = reporter->GetMemoryInfo();
-    std::cout << memInfo;
-}
+	int deviceCount;
+	err = MempulseGetAvailabeDeviceCount(context, &deviceCount);
+	check(err);
 
-void app_main() {
-	Initialize();
+	for (int i = 0; i < deviceCount; ++i) {
+		char deviceName[255];
 
-	int deviceCount = MemoryReporterFactory::GetDeviceCount();
-    if (deviceCount <= 0)
-        throw std::runtime_error("no HIP devices found");
+		err = MempulseGetDeviceName(context, i, deviceName, sizeof(deviceName));
+		check(err);
 
-    for (int i = 0; i < deviceCount; ++i) {
-		const int hipDeviceId = i;
-		try {
-        	auto reporter = mempulse::MemoryReporterFactory::CreateMemoryReporter(hipDeviceId, false);
-			process_hip_device(reporter.get());
-		} catch(const std::exception& e) {
-			std::cerr << "can't get memory info for HIP Device ID: " << hipDeviceId << std::endl;
-			std::cerr << "error:\t" << e.what() << std::endl;
-		}
+		MempulseDeviceMemoryInfo info;
+		err = MempulseGetDeviceMemoryInfo(context, i, &info);
+		check(err);
+
+		MempulsePrintDeviceMemoryInfo(info);
 	}
-}
 
-
-int main(int argc, char** argv) {
-	try {
-		app_main();
-	} catch (std::exception& e) {
-		std::cerr << "error " << e.what() << std::endl;
-		return -1;
-	}
+	err = MempulseShutdown(context);
+	check(err);
 
     return 0;
 }

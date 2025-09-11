@@ -1,37 +1,25 @@
 cmake_minimum_required(VERSION 3.16)
-project(MemPulse VERSION 1.0.0 LANGUAGES CXX)
+project(MemPulse VERSION 1.0.1 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 
-option(BUILD_EXAMPLES "Build basic example" ON)
-option(BUILD_TESTS "Build tests" ON)
+option(MEMPULSE_EXPORT_API "Export dll symbols" ON)
+option(BUILD_EXAMPLES "Build basic example" OFF)
+option(BUILD_TESTS "Build tests" OFF)
 option(BUILD_APPLICATION "Build command line application" ON)
-option(BUILD_SHARED "Build as shared library" OFF)
 set(HIP_PLATFORM "amd" CACHE STRING "Choose between AMD and NVIDIA")
 
-#include(${CMAKE_SOURCE_DIR}/cmake/FindHIP.cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
+set(HIP_DIR "/opt/rocm/lib/cmake/hip")
 
-#if(ROCM_PATH)
-#    set(HIP_DIR ${ROCM_PATH})
-#    message(STATUS "Using ROCM_PATH from CMake variable: ${HIP_DIR}")
-#elseif(DEFINED ENV{ROCM_PATH})
-#    set(HIP_DIR $ENV{ROCM_PATH})
-#    message(STATUS "Using ROCM_PATH from environment: ${HIP_DIR}")
-#else()
-#    if(WIN32)
-#        set(HIP_DIR "C:/opt/rocm")
-#    else()
-#        set(HIP_DIR "/opt/rocm")
-#    endif()
-#    message(STATUS "Using default ROCM_PATH: ${HIP_DIR}")
-#endif()
+include("${CMAKE_SOURCE_DIR}/cmake/CompileOptions.cmake")
+include("${CMAKE_SOURCE_DIR}/cmake/WindowsFileVersion.cmake")
+include("${CMAKE_SOURCE_DIR}/cmake/CopyFileToTarget.cmake")
 
-list(APPEND CMAKE_PREFIX_PATH "/opt/rocm/lib/cmake/hip")
-#AddHIP(HIP_DIR ${HIP_DIR})
 find_package(HIP REQUIRED CONFIG)
-
-#include_directories(${CMAKE_SOURCE_DIR}/include)
+find_package(Boost REQUIRED COMPONENTS system log program_options)
 
 # Platform-specific libraries
 if(WIN32)
@@ -39,17 +27,24 @@ if(WIN32)
     set(SETUPAPI_LIB setupapi)
 endif()
 
-add_subdirectory(src)
+include(GNUInstallDirs)
 
+# workaround for dll's copies
+if(WIN32)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+endif()
+
+add_subdirectory(mempulse)
 if(BUILD_APPLICATION)
 	add_subdirectory(application)
 endif()
-
 if(BUILD_EXAMPLES)
 	add_subdirectory(examples)
 endif()
-
 if(BUILD_TESTS)
+	find_package(GTest REQUIRED)
 	add_subdirectory(tests)
 endif()
 
