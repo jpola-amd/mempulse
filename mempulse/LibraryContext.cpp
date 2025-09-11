@@ -1,4 +1,4 @@
-#include "MempulseContextImpl.h"
+#include "LibraryContext.h"
 #include "Error.h"
 #include "Logging.h"
 
@@ -17,7 +17,7 @@
 
 namespace mempulse {
 
-MempulseContextImpl::MempulseContextImpl(MempulseBackend backend)
+LibraryContext::LibraryContext(MempulseBackend backend)
 {
 	MEMPULSE_LOG_TRACE();
 
@@ -49,7 +49,7 @@ MempulseContextImpl::MempulseContextImpl(MempulseBackend backend)
 }
 
 
-MempulseContextImpl::BackendPtr MempulseContextImpl::createBackend(MempulseBackend backend)
+LibraryContext::BackendPtr LibraryContext::createBackend(MempulseBackend backend)
 {
 	MEMPULSE_LOG_TRACE();
 
@@ -77,8 +77,8 @@ MempulseContextImpl::BackendPtr MempulseContextImpl::createBackend(MempulseBacke
 	return nullptr;
 }
 
-MempulseContextImpl* get_ctx(void* context) {
-	MempulseContextImpl* ctx =  static_cast<MempulseContextImpl*>(context);
+LibraryContext* get_ctx(void* context) {
+	LibraryContext* ctx =  static_cast<LibraryContext*>(context);
 	if (!ctx)
 		throw ErrorInvalidContext();
 

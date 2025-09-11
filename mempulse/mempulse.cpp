@@ -3,7 +3,7 @@
 #include "Device.h"
 #include "Utils.h"
 #include "Backend.h"
-#include "MempulseContextImpl.h"
+#include "LibraryContext.h"
 #include "SafeCall.h"
 #include "Logging.h"
 
@@ -15,7 +15,7 @@ MempulseError MempulseInitialize(MempulseContext* context, MempulseBackend backe
 	MEMPULSE_LOG_TRACE();
 
 	auto result = safeCall([&] {
-		MempulseContextImpl* ctx = new MempulseContextImpl(backend);
+		LibraryContext* ctx = new LibraryContext(backend);
 		*context = ctx;
 	});
 	check(result);
@@ -27,7 +27,7 @@ MempulseError MempulseShutdown(MempulseContext context) {
 	MEMPULSE_LOG_TRACE();
 
 	auto result = safeCall([&] {
-		MempulseContextImpl* ctx = get_ctx(context);
+		LibraryContext* ctx = get_ctx(context);
 		delete ctx;
 	});
 	check(result);
@@ -53,7 +53,7 @@ MempulseError MempulseGetAvailabeDeviceCount(MempulseContext context, int* count
 	MEMPULSE_LOG_TRACE();
 
 	auto result = safeCall([&] {
-		MempulseContextImpl* ctx = get_ctx(context);
+		LibraryContext* ctx = get_ctx(context);
 		if (!count)
 			throw ErrorInvalidParameter("count", "must be not null");
 		*count = ctx->backend()->GetDeviceCount();
@@ -71,7 +71,7 @@ MempulseError MempulseGetDeviceName(
 	MEMPULSE_LOG_TRACE();
 
 	auto result = safeCall([&] {
-		MempulseContextImpl* ctx = get_ctx(context);
+		LibraryContext* ctx = get_ctx(context);
 		if (!deviceName)
 			throw ErrorInvalidParameter("deviceName", "must be not null");
 
@@ -100,7 +100,7 @@ MempulseError MempulseGetDeviceMemoryInfo(
 	MEMPULSE_LOG_TRACE();
 
 	auto result = safeCall([&] {
-		MempulseContextImpl* ctx = get_ctx(context);
+		LibraryContext* ctx = get_ctx(context);
 		if (!deviceMemoryInfo)
 			throw ErrorInvalidParameter("deviceMemoryInfo", "must be not nullptr");
 
@@ -123,7 +123,7 @@ MEMPULSE_API MempulseError MempulseGetDeviceMemoryUsage(
 	MEMPULSE_LOG_TRACE();
 
 	auto result = safeCall([&] {
-		MempulseContextImpl* ctx = get_ctx(context);
+		LibraryContext* ctx = get_ctx(context);
 
 		if (!deviceMemoryUsage)
 			throw ErrorInvalidParameter("deviceMemoryUsage", "must be not nullptr");

@@ -6,13 +6,13 @@
 
 namespace mempulse {
 
-class MempulseContextImpl {
+class LibraryContext {
 public:
 	using BackendPtr = std::unique_ptr<Backend>;
 
 	BackendPtr createBackend(MempulseBackend backend);
 
-	MempulseContextImpl(MempulseBackend backend);
+	LibraryContext(MempulseBackend backend);
 
 	Backend* backend() { return m_context.get(); }
 	const Backend* backend() const { return m_context.get(); }
@@ -21,6 +21,6 @@ private:
 	BackendPtr m_context;
 };
 
-MempulseContextImpl* get_ctx(void* context);
+LibraryContext* get_ctx(void* context);
 
 } // namespace mempulse

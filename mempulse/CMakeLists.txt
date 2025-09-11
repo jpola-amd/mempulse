@@ -20,14 +20,14 @@ set(HEADERS
 	Backend.h  
 	Logging.h  
 	mempulse.h  
-	MempulseContextImpl.h
+	LibraryContext.h
 	SafeCall.h  
 	Utils.h
 )
 
 set(SOURCES
 	Error.cpp  
-	MempulseContextImpl.cpp
+	LibraryContext.cpp
 	mempulse.cpp  
 	Utils.cpp
 )
