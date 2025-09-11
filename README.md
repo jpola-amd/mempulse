@@ -36,7 +36,7 @@ Api declaration ma be found in `mempulse/mempulse.h`
 
 ## Example
 
-```
+```cpp
 #include "mempulse/mempulse.h"
 
 #define check(err) if (err != MEMPULSE_SUCCESS) return err;
