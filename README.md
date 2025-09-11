@@ -26,108 +26,49 @@ gpus the available shared memory is reported as dedicated memory.
 Small differences may occur due to sampling time, rounding, and how each tool interprets memory states.
 MemPulse provides a detailed breakdown of VRAM usage and availability, closely matching the values shown in Task Manager for dedicated GPU memory.
 
+# Building
 
-# Build
+Building notes in `BUILD.me` file
 
-List of dependencies are:
-* HIP
-* Boost (for command line application)
-* GTest (for testing)
+# API
 
-## Linux
+Api declaration ma be found in `mempulse/mempulse.h`
 
-### Dependencies
-
-[hip installation](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/quick-start.html)
-
-* HIP for ubuntu 24.04
+## Example
 
 ```
-wget https://repo.radeon.com/amdgpu-install/6.4.3/ubuntu/noble/amdgpu-install_6.4.60403-1_all.deb
-sudo apt install ./amdgpu-install_6.4.60403-1_all.deb
-sudo apt update
-sudo apt install python3-setuptools python3-wheel
-sudo usermod -a -G render,video $LOGNAME # Add the current user to the render and video groups
-sudo apt install rocm
-```
+#include "mempulse/mempulse.h"
 
-* boost (for command line application)
-```
-apt-get install libboost-dev
-```
+#define check(err) if (err != MEMPULSE_SUCCESS) return err;
 
-* gtest (for testing)
+int main(int /*argc*/, char** /*argv*/) {
+        MempulseError err;
+        MempulseContext context;
 
-```
-apt-get install libgtest-dev
-```
+        err = MempulseInitialize(&context);
+        check(err);
 
-### Build mempulse
+        int deviceCount;
+        err = MempulseGetAvailabeDeviceCount(context, &deviceCount);
+        check(err);
 
-Create build directory
-```
-mkdir build
-```
+        for (int i = 0; i < deviceCount; ++i) {
+                char deviceName[255];
 
-Build project with command
+                err = MempulseGetDeviceName(context, i, deviceName, sizeof(deviceName));
+                check(err);
 
-```
-cmake -DCMAKE_BUILD_TYPE=debug -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_INSTALL_PREFIX=/tmp/mempulse ..
-```
+                MempulseDeviceMemoryInfo info;
+                err = MempulseGetDeviceMemoryInfo(context, i, &info);
+                check(err);
 
-## Windows
+                MempulsePrintDeviceMemoryInfo(info);
+        }
 
+        err = MempulseShutdown(context);
+        check(err);
 
-### Dependencies
-
-Installation via `vcpkg` command line
-
-#### vcpkg
-
-Clone somewhere vcpkg
+    return 0;
+}
 
 ```
-git clone https://github.com/microsoft/vcpkg.git
-```
-
-Go to cloned directory 
-
-```
-cd vcpkg
-```
-
-Execute bootstrap
-```
-./bootstrap-vcpkg.sh # For Linux/macOS
-./bootstrap-vcpkg.bat # For Windows
-```
-Install integration 
-```
- ./vcpkg integrate install
-```
-
-Install dependencies
-```
-vcpkg install gtest
-vckpg install boost
-```
-
-### Build
-
-Go to project directory, create build dir
-```
-mkdir build
-```
-Go to project directory
-```
-cd build
-```
-
-Build project. Please, note: `CMAKE_TOOLCHAIN_FILE` should contain path to your vcpkg
-```
-cmake -DCMAKE_TOOLCHAIN_FILE=C:/workspace/vcpkg/scripts/buildsystems/vcpkg.cmake ..
-```
-
-Open visual studio, open solution file. Solution file should be in `build` directory
-
-Build project
