@@ -1,12 +1,12 @@
 #pragma once
 
-#include "mempulse/LibraryContext.h"
+#include "mempulse/Backend.h"
 
 namespace mempulse {
 
-class LibraryContextDrm : public LibraryContext {
+class BackendDrm : public Backend {
 public:
-	LibraryContextDrm();
+	BackendDrm();
 	int GetDeviceCount() override;
 
 	std::unique_ptr<Device> createDevice(int deviceIndex) override;

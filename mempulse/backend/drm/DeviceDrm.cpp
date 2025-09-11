@@ -1,10 +1,10 @@
 #include "DeviceDrm.h"
-#include "LibraryContextDrm.h"
+#include "BackendDrm.h"
 #include "mempulse/Logging.h"
 
 namespace mempulse {
 
-DeviceDrm::DeviceDrm(const LibraryContextDrm&, int deviceId)
+DeviceDrm::DeviceDrm(const BackendDrm&, int deviceId)
 : Device(deviceId)
 {
 	MEMPULSE_LOG_TRACE();

@@ -4,11 +4,11 @@
 
 namespace mempulse {
 
-class LibraryContextDrm;
+class BackendDrm;
 
 class DeviceDrm : public Device {
 public:
-	explicit DeviceDrm(const LibraryContextDrm&, int deviceId);
+	explicit DeviceDrm(const BackendDrm&, int deviceId);
 
 	MempulseDeviceMemoryInfo GetMemoryInfo() override;
     MempulseDeviceMemoryUsage GetMemoryUsage() override;

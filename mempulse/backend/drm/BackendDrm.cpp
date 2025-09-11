@@ -1,14 +1,14 @@
-#include "LibraryContextDrm.h"
+#include "BackendDrm.h"
 #include "DeviceDrm.h"
 #include "mempulse/Logging.h"
 
 namespace mempulse {
 
-LibraryContextDrm::LibraryContextDrm() {
+BackendDrm::BackendDrm() {
 	MEMPULSE_LOG_TRACE();
 }
 
-int LibraryContextDrm::GetDeviceCount() {
+int BackendDrm::GetDeviceCount() {
 	MEMPULSE_LOG_TRACE();
 
 	int deviceCount = 0;
@@ -16,7 +16,7 @@ int LibraryContextDrm::GetDeviceCount() {
 	return deviceCount;
 }
 
-std::unique_ptr<Device> LibraryContextDrm::createDevice(int deviceIndex) {
+std::unique_ptr<Device> BackendDrm::createDevice(int deviceIndex) {
 	MEMPULSE_LOG_TRACE();
 
 	return std::make_unique<DeviceDrm>(*this, deviceIndex);

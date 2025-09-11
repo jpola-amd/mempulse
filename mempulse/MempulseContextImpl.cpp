@@ -3,15 +3,15 @@
 #include "Logging.h"
 
 #ifdef MEMPULSE_BUILD_BACKEND_D3DKMT
-#include "backend/d3dkmt/LibraryContextD3dkmt.h"
+#include "backend/d3dkmt/BackendD3dkmt.h"
 #endif
 
 #ifdef MEMPULSE_BUILD_BACKEND_HIP
-#include "backend/hip/LibraryContextHip.h"
+#include "backend/hip/BackendHip.h"
 #endif
 
 #ifdef MEMPULSE_BUILD_BACKEND_DRM
-#include "backend/drm/LibraryContextDrm.h"
+#include "backend/drm/BackendDrm.h"
 #endif
 
 
@@ -49,24 +49,24 @@ MempulseContextImpl::MempulseContextImpl(MempulseBackend backend)
 }
 
 
-MempulseContextImpl::LibraryContextPtr MempulseContextImpl::createBackend(MempulseBackend backend)
+MempulseContextImpl::BackendPtr MempulseContextImpl::createBackend(MempulseBackend backend)
 {
 	MEMPULSE_LOG_TRACE();
 
 	switch (backend) {
 		case MempulseBackend::MEMPULSE_BACKEND_HIP:
 #ifdef MEMPULSE_BUILD_BACKEND_HIP
-			return std::make_unique<LibraryContextHip>();
+			return std::make_unique<BackendHip>();
 #endif
 		break;
 		case MempulseBackend::MEMPULSE_BACKEND_DRM:
 #ifdef MEMPULSE_BUILD_BACKEND_DRM
-			//return std::make_unique<LibraryContextDrm>();
+			//return std::make_unique<BackendDrm>();
 #endif
 		break;
 		case MempulseBackend::MEMPULSE_BACKEND_D3DKMT:
 #ifdef MEMPULSE_BUILD_BACKEND_D3DKMT
-			return std::make_unique<LibraryContextD3dkmt>();
+			return std::make_unique<BackendD3dkmt>();
 #endif
 		break;
 		default:

@@ -6,10 +6,10 @@ namespace mempulse {
 
 class Device;
 
-class LibraryContext
+class Backend
 {
 public:
-	virtual ~LibraryContext() = default;
+	virtual ~Backend() = default;
 
 	virtual int GetDeviceCount() = 0;
 	virtual std::unique_ptr<Device> createDevice(int deviceIndex) = 0;

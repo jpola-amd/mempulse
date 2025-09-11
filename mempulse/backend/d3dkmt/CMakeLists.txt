@@ -1,10 +1,10 @@
 set(HEADERS
 	DeviceD3dkmt.h
-	LibraryContextD3dkmt.h
+	BackendD3dkmt.h
 )
 set(SOURCES
 	DeviceD3dkmt.cpp
-	LibraryContextD3dkmt.cpp
+	BackendD3dkmt.cpp
 )
 
 add_library(mempulse_backend_d3dkmt STATIC ${HEADERS} ${SOURCES})

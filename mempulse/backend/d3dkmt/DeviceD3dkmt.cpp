@@ -7,10 +7,10 @@
 #include <vector>
 
 #pragma comment(lib, "gdi32.lib")
-#pragma comment(lib, "dxgi.lib") 
+#pragma comment(lib, "dxgi.lib")
 
 #include "DeviceD3dkmt.h"
-#include "LibraryContextD3dkmt.h"
+#include "BackendD3dkmt.h"
 #include "mempulse/Error.h"
 #include "mempulse/Logging.h"
 
@@ -38,7 +38,7 @@ static inline UINT64 GetTotalMemory(const D3DKMT_QUERYSTATISTICS_MEMORY_USAGE& u
 
 namespace mempulse {
 
-DeviceD3dkmt::DeviceD3dkmt(const LibraryContextD3dkmt& context, int deviceId)
+DeviceD3dkmt::DeviceD3dkmt(const BackendD3dkmt& context, int deviceId)
     : DeviceHip(context, deviceId) {
     MEMPULSE_LOG_TRACE();
 }

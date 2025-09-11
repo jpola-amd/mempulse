@@ -1,24 +1,24 @@
 #pragma once
 
 #include "mempulse.h"
-#include "LibraryContext.h"
+#include "Backend.h"
 #include <memory>
 
 namespace mempulse {
 
 class MempulseContextImpl {
 public:
-	using LibraryContextPtr = std::unique_ptr<LibraryContext>;
+	using BackendPtr = std::unique_ptr<Backend>;
 
-	LibraryContextPtr createBackend(MempulseBackend backend);
+	BackendPtr createBackend(MempulseBackend backend);
 
 	MempulseContextImpl(MempulseBackend backend);
 
-	LibraryContext* backend() { return m_context.get(); }
-	const LibraryContext* backend() const { return m_context.get(); }
+	Backend* backend() { return m_context.get(); }
+	const Backend* backend() const { return m_context.get(); }
 
 private:
-	LibraryContextPtr m_context;
+	BackendPtr m_context;
 };
 
 MempulseContextImpl* get_ctx(void* context);

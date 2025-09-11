@@ -1,11 +1,11 @@
 set(HEADERS
 	check_hip.h
 	DeviceHip.h
-	LibraryContextHip.h
+	BackendHip.h
 )
 set(SOURCES
 	DeviceHip.cpp
-	LibraryContextHip.cpp
+	BackendHip.cpp
 )
 
 add_library(mempulse_backend_hip STATIC ${HEADERS} ${SOURCES})

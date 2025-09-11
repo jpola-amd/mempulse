@@ -17,7 +17,7 @@ configure_file(
 set(HEADERS
 	Device.h  
 	Error.h  
-	LibraryContext.h  
+	Backend.h  
 	Logging.h  
 	mempulse.h  
 	MempulseContextImpl.h

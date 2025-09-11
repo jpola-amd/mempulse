@@ -2,7 +2,7 @@
 #include "Config.h"
 #include "Device.h"
 #include "Utils.h"
-#include "LibraryContext.h"
+#include "Backend.h"
 #include "MempulseContextImpl.h"
 #include "SafeCall.h"
 

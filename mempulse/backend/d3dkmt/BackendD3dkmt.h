@@ -1,12 +1,12 @@
 #pragma once
 
-#include "mempulse/backend/hip/LibraryContextHip.h"
+#include "mempulse/backend/hip/BackendHip.h"
 
 namespace mempulse {
 
-class LibraryContextD3dkmt : public LibraryContextHip {
+class BackendD3dkmt : public BackendHip {
 public:
-    LibraryContextD3dkmt();
+    BackendD3dkmt();
 
     std::unique_ptr<Device> createDevice(int deviceIndex) override;
 };

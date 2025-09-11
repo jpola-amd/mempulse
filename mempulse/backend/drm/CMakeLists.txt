@@ -1,10 +1,10 @@
 set(HEADERS
 	DeviceDrm.h
-	LibraryContextDrm.h
+	BackendDrm.h
 )
 set(SOURCES
 	DeviceDrm.cpp
-	LibraryContextDrm.cpp
+	BackendDrm.cpp
 )
 
 add_library(mempulse_backend_drm STATIC ${HEADERS} ${SOURCES})

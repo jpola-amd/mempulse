@@ -1,11 +1,11 @@
 #include "DeviceHip.h"
-#include "LibraryContextHip.h"
+#include "BackendHip.h"
 #include "check_hip.h"
 #include "mempulse/Logging.h"
 
 namespace mempulse {
 
-DeviceHip::DeviceHip(const LibraryContextHip&, int deviceId)
+DeviceHip::DeviceHip(const BackendHip&, int deviceId)
 : Device(deviceId)
 {
 	MEMPULSE_LOG_TRACE();

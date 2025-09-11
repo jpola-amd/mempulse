@@ -1,4 +1,4 @@
-#include "LibraryContextHip.h"
+#include "BackendHip.h"
 #include "DeviceHip.h"
 #include "mempulse/Logging.h"
 #include "check_hip.h"
@@ -7,14 +7,14 @@
 
 namespace mempulse {
 
-LibraryContextHip::LibraryContextHip() {
+BackendHip::BackendHip() {
 	MEMPULSE_LOG_TRACE();
 
     hipError_t err = hipInit(0);
 	CHECK_HIP(err, "failed to initalize hip");
 }
 
-int LibraryContextHip::GetDeviceCount() {
+int BackendHip::GetDeviceCount() {
 	MEMPULSE_LOG_TRACE();
 
 	int deviceCount;
@@ -25,7 +25,7 @@ int LibraryContextHip::GetDeviceCount() {
 	return deviceCount;
 }
 
-std::unique_ptr<Device> LibraryContextHip::createDevice(int deviceIndex) {
+std::unique_ptr<Device> BackendHip::createDevice(int deviceIndex) {
 	MEMPULSE_LOG_TRACE();
 
 	return std::make_unique<DeviceHip>(*this, deviceIndex);

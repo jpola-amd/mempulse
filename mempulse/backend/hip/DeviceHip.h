@@ -6,13 +6,13 @@
 
 namespace mempulse {
 
-class LibraryContextHip;
+class BackendHip;
 
 class DeviceHip : public Device {
 public:
 	using Luid = std::array<char, 8>;
 
-	explicit DeviceHip(const LibraryContextHip&, int deviceId);
+	explicit DeviceHip(const BackendHip&, int deviceId);
 
 	MempulseDeviceMemoryInfo GetMemoryInfo() override;
     MempulseDeviceMemoryUsage GetMemoryUsage() override;
