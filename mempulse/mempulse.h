@@ -58,6 +58,15 @@ typedef enum MempulseError {
     MEMPULSE_INTERNAL_ERROR = -5
 } MempulseError;
 
+typedef enum MempulseBackend {
+    MEMPULSE_BACKEND_ANY = 0,
+    MEMPULSE_BACKEND_DRM = 1,
+    MEMPULSE_BACKEND_HIP = 2,
+    MEMPULSE_BACKEND_D3DKMT = 3,
+    MEMPULSE_BACKEND_END = 4,
+} MempulseBackend;
+
+
 typedef struct MempulseDeviceMemoryInfo {
     // on linux only dedicated is reported
     // for integrated gpus it account the memory in dedicated section
@@ -75,7 +84,7 @@ typedef struct MempulseDeviceMemoryUsage {
 
 typedef void* MempulseContext;
 
-MEMPULSE_API MempulseError MempulseInitialize(MempulseContext* context);
+MEMPULSE_API MempulseError MempulseInitialize(MempulseContext* context, MempulseBackend backend = MEMPULSE_BACKEND_ANY);
 
 MEMPULSE_API MempulseError MempulseShutdown(MempulseContext context);
 

@@ -15,7 +15,6 @@ TEST_F(TestLibrary, initialization) {
 	EXPECT_EQ(err, MEMPULSE_SUCCESS);
 }
 
-
 TEST_F(TestLibrary, get_version) {
 	const char* version = MempulseGetVersion();
 	EXPECT_GT(strlen(version), 0) << "library version: \"" << version << "\"" << std::endl;

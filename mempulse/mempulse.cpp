@@ -2,33 +2,22 @@
 #include "Config.h"
 #include "Device.h"
 #include "Utils.h"
+#include "LibraryContext.h"
+#include "MempulseContextImpl.h"
 #include "SafeCall.h"
 
-#include "backend/hip/LibraryContextHip.h"
-
-#include <memory>
 #include <string.h>
-
 
 using namespace mempulse;
 
-struct MempulseContextImpl {
-	LibraryContextHip libraryContextHip;
-};
-
-inline MempulseContextImpl* get_ctx(void* context) {
-	MempulseContextImpl* ctx =  static_cast<MempulseContextImpl*>(context);
-	if (ctx == 0)
-		throw ErrorInvalidContext();
-
-	return ctx;
-}
-
-MempulseError MempulseInitialize(MempulseContext* context) {
+MempulseError MempulseInitialize(MempulseContext* context, MempulseBackend backend) {
 	MEMPULSE_LOG_TRACE();
 
-	MempulseContextImpl* ctx = new MempulseContextImpl;
-	*context = ctx;
+	auto result = safeCall([&] {
+		MempulseContextImpl* ctx = new MempulseContextImpl(backend);
+		*context = ctx;
+	});
+	check(result);
 
 	return MEMPULSE_SUCCESS;
 }
@@ -58,7 +47,7 @@ MempulseError MempulseGetAvailabeDeviceCount(MempulseContext context, int* count
 		MempulseContextImpl* ctx = get_ctx(context);
 		if (!count)
 			throw ErrorInvalidParameter("count", "must be not null");
-		*count = ctx->libraryContextHip.GetDeviceCount();
+		*count = ctx->backend()->GetDeviceCount();
 	});
 	check(result);
 
@@ -77,7 +66,7 @@ MempulseError MempulseGetDeviceName(
 		if (!deviceName)
 			throw ErrorInvalidParameter("deviceName", "must be not null");
 
-		auto device = ctx->libraryContextHip.createDevice(deviceIndex);
+		auto device = ctx->backend()->createDevice(deviceIndex);
 
 		const std::string gpuDeviceName = device->GetHardwareName();
 
@@ -106,7 +95,7 @@ MempulseError MempulseGetDeviceMemoryInfo(
 		if (!deviceMemoryInfo)
 			throw ErrorInvalidParameter("deviceMemoryInfo", "must be not nullptr");
 
-		auto device = ctx->libraryContextHip.createDevice(deviceIndex);
+		auto device = ctx->backend()->createDevice(deviceIndex);
 		if (!device)
 			throw ErrorInvalidDevice(deviceIndex);
 
@@ -130,7 +119,7 @@ MEMPULSE_API MempulseError MempulseGetDeviceMemoryUsage(
 		if (!deviceMemoryUsage)
 			throw ErrorInvalidParameter("deviceMemoryUsage", "must be not nullptr");
 
-		auto device = ctx->libraryContextHip.createDevice(deviceIndex);
+		auto device = ctx->backend()->createDevice(deviceIndex);
 		if (!device)
 			throw ErrorInvalidDevice(deviceIndex);
 

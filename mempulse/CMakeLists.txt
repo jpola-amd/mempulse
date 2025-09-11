@@ -20,12 +20,14 @@ set(HEADERS
 	LibraryContext.h  
 	Logging.h  
 	mempulse.h  
+	MempulseContextImpl.h
 	SafeCall.h  
 	Utils.h
 )
 
 set(SOURCES
 	Error.cpp  
+	MempulseContextImpl.cpp
 	mempulse.cpp  
 	Utils.cpp
 )
@@ -39,11 +41,6 @@ add_library(mempulse SHARED
 )
 set_target_properties(mempulse PROPERTIES VERSION ${PROJECT_VERSION})
 
-if(WIN32)
-	add_subdirectory(backend/d3dkmt)
-endif()
-add_subdirectory(backend/hip)
-
 if(MEMPULSE_EXPORT_API)
     target_compile_definitions(mempulse PRIVATE MEMPULSE_EXPORT_API)
 endif()
@@ -53,19 +50,38 @@ target_include_directories(mempulse
 	PRIVATE ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-target_link_libraries(mempulse 
-	PRIVATE mempulse_backend_hip
-)
 
 target_compile_definitions(mempulse 
 	PRIVATE $<$<CONFIG:Debug>:MEMPULSE_ASSERT_ENABLED>
 )
 
-if(WIN32)
+# ----------------------------------------
+# backends 
+# ----------------------------------------
+
+if(BUILD_BACKEND_D3DKMT)
+	add_subdirectory(backend/d3dkmt)
+	target_compile_definitions(mempulse PRIVATE MEMPULSE_BUILD_BACKEND_D3DKMT)
     target_link_libraries(mempulse PRIVATE ${DXGI_LIB} ${SETUPAPI_LIB})
 endif()
 
+if(BUILD_BACKEND_HIP)
+	add_subdirectory(backend/hip)
+	target_compile_definitions(mempulse PRIVATE MEMPULSE_BUILD_BACKEND_HIP)
+	target_link_libraries(mempulse PRIVATE mempulse_backend_hip)
+endif()
+
+if(BUILD_BACKEND_DRM)
+	add_subdirectory(backend/drm)
+	target_compile_definitions(mempulse PRIVATE MEMPULSE_BUILD_BACKEND_DRM)
+    target_link_libraries(mempulse PRIVATE mempulse_backend_drm)
+endif()
+
+# ----------------------------------------
+# installation
+# ----------------------------------------
 set_target_properties(mempulse PROPERTIES PUBLIC_HEADER "mempulse.h")
+
 install(TARGETS mempulse
         RUNTIME PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/mempulse)
 
@@ -75,7 +91,3 @@ install(TARGETS mempulse
 #	RUNTIME DESTINATION bin
 #	RUNTIME PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/mempulse
 #)
-
-
-#install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION include)
-

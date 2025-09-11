@@ -48,6 +48,19 @@ TEST_F(TestDevice, get_memory_info_device_0) {
 	MempulsePrintDeviceMemoryInfo(info);
 }
 
+TEST_F(TestDevice, get_memory_info_device_0_bad_ptr) {
+	MempulseError err;
+
+	int deviceCount;
+
+	err = MempulseGetAvailabeDeviceCount(context, &deviceCount);
+	ASSERT_EQ(err, MEMPULSE_SUCCESS);
+	ASSERT_GT(deviceCount, 0);
+
+	err = MempulseGetDeviceMemoryInfo(context, 0, nullptr);
+	EXPECT_EQ(err, MEMPULSE_INVALID_PARAMETER);
+}
+
 TEST_F(TestDevice, get_memory_usage_device_0) {
 	MempulseError err;
 
