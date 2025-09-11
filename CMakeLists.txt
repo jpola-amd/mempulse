@@ -58,6 +58,21 @@ if(BUILD_TESTS)
 	add_subdirectory(tests)
 endif()
 
-# Generate and install pkg-config file
 configure_file(mempulse.pc.in mempulse.pc @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/mempulse.pc DESTINATION lib/pkgconfig)
+
+# --- CPack Configuration ---
+include(InstallRequiredSystemLibraries)
+
+set(CPACK_PACKAGE_NAME "mempulse")
+set(CPACK_PACKAGE_VENDOR "AMD")
+set(CPACK_PACKAGE_CONTACT "example@amd.com")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Cross-platform GPU memory monitoring library")
+set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE") 
+set(CPACK_RESOURCE_FILE_README  "${CMAKE_CURRENT_SOURCE_DIR}/README.md") 
+
+# Choose default generators (you can also pass -G when calling cpack)
+set(CPACK_GENERATOR "ZIP;TGZ")
+
+include(CPack)
