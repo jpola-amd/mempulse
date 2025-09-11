@@ -55,4 +55,18 @@ std::string DeviceHip::GetHardwareName()
 	return m_deviceProperties.name;
 }
 
+DeviceHip::Luid DeviceHip::luid() const
+{
+    Luid luid;
+    static_assert(luid.size() == sizeof(m_deviceProperties.luid));
+
+	memcpy(luid.data(), m_deviceProperties.luid, luid.size());
+    return luid;
+}
+
+bool DeviceHip::IsIntegrated() const
+{
+    return m_deviceProperties.integrated;
+}
+
 } // namespace mempulse

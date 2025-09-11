@@ -62,7 +62,7 @@ target_compile_definitions(mempulse
 if(BUILD_BACKEND_D3DKMT)
 	add_subdirectory(backend/d3dkmt)
 	target_compile_definitions(mempulse PRIVATE MEMPULSE_BUILD_BACKEND_D3DKMT)
-    target_link_libraries(mempulse PRIVATE ${DXGI_LIB} ${SETUPAPI_LIB})
+	target_link_libraries(mempulse PRIVATE mempulse_backend_d3dkmt)
 endif()
 
 if(BUILD_BACKEND_HIP)

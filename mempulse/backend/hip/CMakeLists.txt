@@ -12,7 +12,7 @@ add_library(mempulse_backend_hip STATIC ${HEADERS} ${SOURCES})
 set_target_properties(mempulse_backend_hip PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_include_directories(mempulse_backend_hip 
 	PRIVATE ${CMAKE_SOURCE_DIR} 
-	PRIVATE ${hip_INCLUDE_DIRS}
+	PUBLIC ${hip_INCLUDE_DIRS}
 )
 
 target_link_libraries(mempulse_backend_hip 

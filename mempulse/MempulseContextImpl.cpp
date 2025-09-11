@@ -22,14 +22,14 @@ MempulseContextImpl::MempulseContextImpl(MempulseBackend backend)
 	MEMPULSE_LOG_TRACE();
 
 	if (backend == MempulseBackend::MEMPULSE_BACKEND_ANY) {
-#ifdef MEMPULSE_PLATFORM_WINDOWS
+#if MEMPULSE_PLATFORM_WINDOWS
 		try {
 			m_context = createBackend(MEMPULSE_BACKEND_D3DKMT);
 		} catch(std::exception& e) {
 			MEMPULSE_LOG_DEBUG(e.what());
 		}
 #endif
-#ifdef MEMPULSE_PLATFORM_LINUX
+#if MEMPULSE_PLATFORM_LINUX
 		try {
 			m_context = createBackend(MEMPULSE_BACKEND_DRM);
 		} catch(std::exception& e) {

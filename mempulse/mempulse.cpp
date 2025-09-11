@@ -132,12 +132,12 @@ MEMPULSE_API MempulseError MempulseGetDeviceMemoryUsage(
 
 void MempulsePrintDeviceMemoryInfo(
 		const MempulseDeviceMemoryInfo& deviceMemoryInfo) {
-	std::cout << deviceMemoryInfo;
+	std::cout << deviceMemoryInfo << std::endl;
 }
 
 MEMPULSE_API void MempulsePrintDeviceMemoryUsage(
 		const MempulseDeviceMemoryUsage& deviceMemoryUsage)
 {
-	std::cout << deviceMemoryUsage;
+    std::cout << deviceMemoryUsage << std::endl;
 }
 

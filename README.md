@@ -33,3 +33,16 @@ MemPulse provides a detailed breakdown of VRAM usage and availability, closely m
 cmake -DCMAKE_BUILD_TYPE=debug -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ..
 ```
 
+```
+git clone https://github.com/microsoft/vcpkg.git
+    cd vcpkg
+    ./bootstrap-vcpkg.sh # For Linux/macOS
+    ./bootstrap-vcpkg.bat # For Windows
+
+ ./vcpkg integrate install
+  vcpkg install gtest
+  vckpg install boost
+
+cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=C:/workspace/vcpkg/scripts/buildsystems/vcpkg.cmake ..
+```
