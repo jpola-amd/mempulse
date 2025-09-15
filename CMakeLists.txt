@@ -27,12 +27,14 @@ include("${CMAKE_SOURCE_DIR}/cmake/CompileOptions.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/WindowsFileVersion.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/CopyFileToTarget.cmake")
 
-find_package(HIP REQUIRED CONFIG)
-
-# Platform-specific libraries
-if(WIN32)
-    set(DXGI_LIB dxgi)
-    set(SETUPAPI_LIB setupapi)
+if (BUILD_BACKEND_DRM)
+	find_package(Drm REQUIRED COMPONENTS amdgpu)
+endif()
+if (BUILD_BACKEND_HIP)
+	find_package(HIP REQUIRED CONFIG)
+endif()
+if (BUILD_BACKEND_D3DKMT)
+	find_package(HIP REQUIRED CONFIG)
 endif()
 
 include(GNUInstallDirs)
