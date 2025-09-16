@@ -2,18 +2,24 @@
 #include "DeviceDrm.h"
 #include "mempulse/Logging.h"
 
+#include "DrmDevices.h"
+
 namespace mempulse {
 
 BackendDrm::BackendDrm() {
 	MEMPULSE_LOG_TRACE();
+
 }
 
 int BackendDrm::GetDeviceCount() {
 	MEMPULSE_LOG_TRACE();
 
-	int deviceCount = 0;
+	seteuid(0);
+	DrmDevices devs;
+	size_t count = devs.Size();
+	setuid(getuid());
 
-	return deviceCount;
+	return count;
 }
 
 std::unique_ptr<Device> BackendDrm::createDevice(int deviceIndex) {

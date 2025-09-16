@@ -10,6 +10,7 @@ public:
 	int GetDeviceCount() override;
 
 	std::unique_ptr<Device> createDevice(int deviceIndex) override;
+private:
 };
 
 }

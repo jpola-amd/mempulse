@@ -1,6 +1,8 @@
 #pragma once
 
 #include "mempulse/Device.h"
+#include "DrmDevice.h"
+#include "DrmAmdgpu.h"
 
 namespace mempulse {
 
@@ -15,6 +17,14 @@ public:
 
 	std::string GetHardwareName() override;
 private:
+	static DrmFileAmdgpu OpenDrmFile(short bus = -1);
+
+	DrmFileAmdgpu m_drmFile;
+
+    DrmDevice m_drmDevice;
+    DrmAmdgpu m_drmAmdgpu;
+
+
 };
 
 } // namespace mempulse

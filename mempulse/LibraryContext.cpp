@@ -61,7 +61,7 @@ LibraryContext::BackendPtr LibraryContext::createBackend(MempulseBackend backend
 		break;
 		case MempulseBackend::MEMPULSE_BACKEND_DRM:
 #ifdef MEMPULSE_BUILD_BACKEND_DRM
-			//return std::make_unique<BackendDrm>();
+			return std::make_unique<BackendDrm>();
 #endif
 		break;
 		case MempulseBackend::MEMPULSE_BACKEND_D3DKMT:
