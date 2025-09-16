@@ -64,9 +64,20 @@ DeviceHip::Luid DeviceHip::luid() const
     return luid;
 }
 
-bool DeviceHip::IsIntegrated() const
-{
+bool DeviceHip::IsIntegrated() const {
     return m_deviceProperties.integrated;
+}
+
+int DeviceHip::PciBusID() const {
+	return m_deviceProperties.pciBusID;
+}
+
+int DeviceHip::PciDeviceID() const {
+	return m_deviceProperties.pciDeviceID;
+}
+
+int DeviceHip::PciDomainID() const {
+	return m_deviceProperties.pciDomainID;
 }
 
 } // namespace mempulse

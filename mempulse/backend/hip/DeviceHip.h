@@ -21,6 +21,10 @@ public:
 	Luid luid() const;
     bool IsIntegrated() const;
 
+ 	int PciBusID() const;
+   	int PciDeviceID() const;
+    int PciDomainID() const;
+
 private:
 	hipDeviceProp_t m_deviceProperties;
 };

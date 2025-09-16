@@ -1,5 +1,6 @@
 #include "mempulse/mempulse.h"
 #include <string>
+#include <iostream>
 
 #define check(err) if (err != MEMPULSE_SUCCESS) return err;
 
@@ -19,6 +20,9 @@ int main(int /*argc*/, char** /*argv*/) {
 
 		err = MempulseGetDeviceName(context, i, deviceName, sizeof(deviceName));
 		check(err);
+
+		std::cout << "Device Id:\t\t" << i << "\n";
+		std::cout << "Device Name:\t\t" << deviceName << "\n";
 
 		MempulseDeviceMemoryInfo info;
 		err = MempulseGetDeviceMemoryInfo(context, i, &info);
