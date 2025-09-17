@@ -36,6 +36,8 @@ Api declaration ma be found in `mempulse/mempulse.h`
 
 ## Example
 
+For full example with cmake, see  examples/README.md
+
 ```cpp
 #include "mempulse/mempulse.h"
 

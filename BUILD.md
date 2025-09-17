@@ -2,8 +2,7 @@
 
 List of dependencies are:
 * HIP
-* Boost (for command line application)
-* GTest (for testing)
+* GTest (only for testing)
 
 ## Linux
 
@@ -21,12 +20,6 @@ sudo apt install python3-setuptools python3-wheel
 sudo usermod -a -G render,video $LOGNAME # Add the current user to the render and video groups
 sudo apt install rocm
 ```
-
-* boost (for command line application)
-```
-apt-get install libboost-dev
-```
-
 * gtest (for testing)
 
 ```
@@ -43,7 +36,7 @@ mkdir build
 Build project with command
 
 ```
-cmake -DCMAKE_BUILD_TYPE=debug -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_INSTALL_PREFIX=/tmp/mempulse ..
+cmake -DCMAKE_BUILD_TYPE=debug -G Ninja -DCMAKE_INSTALL_PREFIX=/tmp/mempulse ..
 ```
 
 ## Windows
@@ -80,7 +73,6 @@ Install integration
 Install dependencies
 ```
 vcpkg install gtest
-vckpg install boost
 ```
 
 ### Build

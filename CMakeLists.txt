@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(MemPulse VERSION 1.0.1 LANGUAGES CXX)
+project(mempulse VERSION 1.0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -64,10 +64,12 @@ if(BUILD_TESTS)
 	add_subdirectory(tests)
 endif()
 
-configure_file(mempulse.pc.in mempulse.pc @ONLY)
+configure_file(files/mempulse.pc.in mempulse.pc @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/mempulse.pc DESTINATION lib/pkgconfig)
 
+# ---------------------------------------------------------------------
 # --- CPack Configuration ---
+# ---------------------------------------------------------------------
 include(InstallRequiredSystemLibraries)
 
 set(CPACK_PACKAGE_NAME "mempulse")
