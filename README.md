@@ -114,9 +114,6 @@ Shoudl be included with Windows Kit SDK
 
 Should be included with Windows Driver Kit (WDK).
 
-
-Should be already provided by windows
-
 ## Configure project
 ```
 cmake -S . -B build
