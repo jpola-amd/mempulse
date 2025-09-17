@@ -2,20 +2,20 @@
 
 #include <xf86drm.h>
 
+namespace mempulse {
+
 class DrmVersionPtr {
 public:
-	explicit DrmVersionPtr(drmVersionPtr ver = nullptr) : m_pVersion(ver) {}
-	~DrmVersionPtr() {
-		if (m_pVersion) {
-			drmFreeVersion(m_pVersion);
-		}
-	}
+	explicit DrmVersionPtr(drmVersionPtr ver = nullptr);
+	~DrmVersionPtr();
 
-	drmVersionPtr& operator->() noexcept { return m_pVersion; }
-	operator bool() const noexcept { return m_pVersion != nullptr; }
+	drmVersionPtr& operator->() noexcept;
+	operator bool() const noexcept;
 
 	DrmVersionPtr(const DrmVersionPtr&)            = delete;
 	DrmVersionPtr& operator=(const DrmVersionPtr&) = delete;
 private:
 	drmVersionPtr m_pVersion;
 };
+
+}

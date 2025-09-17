@@ -1,13 +1,13 @@
 #pragma once
 
-#include "mempulse/Backend.h"
+#include "mempulse/backend/hip/BackendHip.h"
 
 namespace mempulse {
 
-class BackendDrm : public Backend {
+class BackendDrm : public BackendHip {
 public:
 	BackendDrm();
-	int GetDeviceCount() override;
+	//int GetDeviceCount() override;
 
 	std::unique_ptr<Device> createDevice(int deviceIndex) override;
 private:

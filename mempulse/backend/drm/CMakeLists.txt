@@ -10,7 +10,6 @@ set(HEADERS
 	DrmFileAmdgpu.h  
 	DrmVersionPtr.h  
 	File.h  
-	HardwarePci.h
 )
 set(SOURCES
 	Authentificate.cpp  
@@ -20,8 +19,8 @@ set(SOURCES
 	DrmDevice.cpp  
 	DrmDevices.cpp  
 	DrmFileAmdgpu.cpp  
+	DrmVersionPtr.cpp
 	File.cpp  
-	HardwarePci.cpp
 )
 
 add_library(mempulse_backend_drm STATIC ${HEADERS} ${SOURCES})
@@ -31,7 +30,9 @@ target_include_directories(mempulse_backend_drm
 )
 
 target_link_libraries(mempulse_backend_drm 
-	PRIVATE Drm::Drm Drm::amdgpu
+	PRIVATE Drm::Drm 
+	PRIVATE Drm::amdgpu
+	PRIVATE mempulse_backend_hip
 )
 
 

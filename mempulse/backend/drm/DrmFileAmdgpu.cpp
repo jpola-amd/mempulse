@@ -1,15 +1,17 @@
 #include "DrmFileAmdgpu.h"
+#include "DrmVersionPtr.h"
+#include "Authentificate.h"
+#include "mempulse/Logging.h"
 
 #include <cstring>
 #include <stdexcept>
-
-#include "DrmVersionPtr.h"
-#include "Authentificate.h"
 
 namespace mempulse {
 
 DrmFileAmdgpu::DrmFileAmdgpu(const char* path)
 	: File(path, Mode::ReadWrite) {
+
+	MEMPULSE_LOG_TRACE();
 
 	DrmVersionPtr ver(drmGetVersion(*this));
 	if (!ver) {

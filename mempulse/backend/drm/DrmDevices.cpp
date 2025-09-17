@@ -1,4 +1,5 @@
 #include "DrmDevices.h"
+#include "mempulse/Logging.h"
 
 #include <stdexcept>
 #include <cassert>
@@ -6,6 +7,8 @@
 namespace mempulse {
 
 DrmDevices::DrmDevices() {
+	MEMPULSE_LOG_TRACE();
+
 	int count = drmGetDevices2(0, nullptr, 0);
 	if (count < 0)
 		throw std::runtime_error("drmGetDevices2 failed");
@@ -21,6 +24,8 @@ DrmDevices::DrmDevices() {
 }
 
 DrmDevices::~DrmDevices() {
+	MEMPULSE_LOG_TRACE();
+
 	drmFreeDevices(m_devices.data(), m_devices.size());
 }
 

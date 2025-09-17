@@ -4,26 +4,34 @@
 #include "DrmDevices.h"
 #include "Defines.h"
 
+#include "DrmDevice.h"
+#include "DrmAmdgpu.h"
+
+
+
 namespace mempulse {
 
-DeviceDrm::DeviceDrm(const BackendDrm&, int deviceId)
-: Device(deviceId),
-  m_drmFile(OpenDrmFile()),
-  m_drmDevice(m_drmFile),
-  m_drmAmdgpu(m_drmFile)
+DeviceDrm::DeviceDrm(const BackendDrm& backend, int deviceId)
+: DeviceHip(backend, deviceId),
+  m_drmFile(OpenDrmFile())//,
+  //m_drmDevice(m_drmFile),
+  //m_drmAmdgpu(m_drmFile)
 {
 	MEMPULSE_LOG_TRACE();
+
 }
 
 MempulseDeviceMemoryInfo DeviceDrm::GetMemoryInfo()
 {
 	MEMPULSE_LOG_TRACE();
-	const auto gtt = m_drmAmdgpu.QueryVramGtt();
+
+	DrmAmdgpu drmAmdgpu(m_drmFile);
+	const auto gtt = drmAmdgpu.QueryVramGtt();
 
 	return {
-		.dedicatedUsed = m_drmAmdgpu.QueryVramUsage(),
+		.dedicatedUsed = drmAmdgpu.QueryVramUsage(),
 		.dedicatedTotal = gtt.vram_size,
-		.sharedUsed = m_drmAmdgpu.QueryGttUsage(),
+		.sharedUsed = drmAmdgpu.QueryGttUsage(),
 		.sharedTotal = gtt.gtt_size,
 	};
 }
@@ -40,12 +48,12 @@ MempulseDeviceMemoryUsage DeviceDrm::GetMemoryUsage()
 	};
 }
 
-std::string DeviceDrm::GetHardwareName()
+/*std::string DeviceDrm::GetHardwareName()
 {
 	MEMPULSE_LOG_TRACE();
 
 	return "amdgpu";
-}
+}*/
 
 DrmFileAmdgpu DeviceDrm::OpenDrmFile(short bus)
 {

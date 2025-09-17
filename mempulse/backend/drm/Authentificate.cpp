@@ -2,9 +2,12 @@
 #include <drm.h>
 #include <xf86drm.h>
 #include <stdexcept>
+#include "mempulse/Logging.h"
 
 namespace mempulse {
 void Authentificate(const File& file) {
+	MEMPULSE_LOG_TRACE();
+
 	drm_magic_t magic;
 
 	/* Obtain magic for our DRM client. */
