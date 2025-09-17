@@ -31,7 +31,9 @@ MemPulse provides a detailed breakdown of VRAM usage and availability, closely m
 Api declaration may be found in [mempulse/mempulse.h](mempulse/mempulse.h)
 
 Example of usage may be found in [examples/example.cpp](examples/example.cpp)
+
 Example of cmake for integration with project [examples/CMakeLists.txt](examples/CMakeLists.txt)
+
 Full project may be found in `example` directory.
 
 
