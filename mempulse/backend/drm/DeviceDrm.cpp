@@ -38,6 +38,7 @@ DeviceDrm::DeviceDrm(const BackendDrm& backend, int deviceId)
   m_drmFile(OpenDrmFile(PciBusID(), PciDeviceID()))
 {
 	MEMPULSE_LOG_TRACE();
+	MEMPULSE_LOG_DEBUG("successfully init device drm");
 }
 
 MempulseDeviceMemoryInfo DeviceDrm::GetMemoryInfo()
@@ -69,6 +70,8 @@ MempulseDeviceMemoryUsage DeviceDrm::GetMemoryUsage()
 
 FileDrmAmdgpu DeviceDrm::OpenDrmFile(int bus, int deviceId)
 {
+	MEMPULSE_LOG_TRACE();
+
 	DrmDevices devs;
 
 	for (size_t i = 0; i < devs.Size(); i++) {
@@ -78,39 +81,34 @@ FileDrmAmdgpu DeviceDrm::OpenDrmFile(int bus, int deviceId)
 			continue;
 		}
 
-
-		// dev is 0
-
-		std::stringstream stream;
-		stream << "----------------------------------\n";
-		stream << "bus\t\t" << bus << "\n";
-		stream << "deviceId\t" << deviceId << "\n";
-		stream << "deviceinfo.pci->deviceId " << device->deviceinfo.pci->device_id << "\n";
-		stream << "businfo.pci->dev " << static_cast<int>(device->businfo.pci->dev) << "\n";
-		stream << "----------------------------------\n";
-
-		std::cout << stream.str();
-
-		if (device->deviceinfo.pci->vendor_id != VENDOR_AMD ||
-			(bus >= 0 && bus != device->businfo.pci->bus)) {
+		if (device->deviceinfo.pci->vendor_id != VENDOR_AMD) {
+			MEMPULSE_LOG_DEBUG("device vendor is not amdgpu");
 			continue;
 		}
 
-		// TODO: use deviceId
+		if (bus >= 0 && bus != device->businfo.pci->bus) {
+			MEMPULSE_LOG_DEBUG("device filtered by busId");
+			continue;
+		}
+
 		// try render node first, as it does not require to drop master
 		for (int j = DRM_NODE_MAX - 1; j >= 0; j--) {
 			if (!(1 << j & device->available_nodes))
 				continue;
 
 			if (deviceId >= 0 && deviceId != device->businfo.pci->dev) {
+				MEMPULSE_LOG_DEBUG("device filtered by device id");
 				continue;
 			}
 
 			try {
-				return FileDrmAmdgpu(devs[i]->nodes[j]);
+				return FileDrmAmdgpu(device->nodes[j]);
 			} catch (std::exception &e) {
 				MEMPULSE_LOG_DEBUG("probing for device failed");
-				std::cerr << e.what() << std::endl;
+
+				std::stringstream msg;
+				msg << "can't create file drm :\t" << e.what();
+				MEMPULSE_LOG_DEBUG(e.what());
 			}
 		}
 	} // foreach devs
