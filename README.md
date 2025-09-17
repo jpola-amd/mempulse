@@ -75,11 +75,18 @@ int main(int /*argc*/, char** /*argv*/) {
 # Command line utility
 Mempulse provides command line utulity `gpumempulse`. 
 
-Example of usage:
+Example of usage `gpumempulse`:
 ```
 gpumempulse
 
-
+Device Id:              0
+Device Name:            AMD Radeon RX 6800 XT
+Total Memory Local:     16279 MB (15.8978 GB)
+Total Memory Shared:    31412 MB (30.6761 GB)
+Used Memory Local:      1951 MB (1.90613 GB)
+Used Memory Shared:     299 MB (0.292656 GB)
+Free Memory: Local:     14327 MB (13.9917 GB)
+Free Memory: Shared:    31112 MB (30.3835 GB)
 ```
 
 # Building
