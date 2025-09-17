@@ -105,7 +105,15 @@ apt get install libdrm-dev libdrm-amdgpu-dev
 See [AMD HIP SDK for Windows](https://www.amd.com/en/developer/resources/rocm-hub/hip-sdk.html)
 
 This version is testing with HIP 6.2.4
-* DXDKMT
+
+* GDI (Graphics Device Interface) 
+
+Shoudl be included with Windows Kit SDK
+
+* D3DKMT
+
+Should be included with Windows Driver Kit (WDK).
+
 
 Should be already provided by windows
 

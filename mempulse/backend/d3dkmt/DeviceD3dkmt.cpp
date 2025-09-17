@@ -1,13 +1,11 @@
 #include <Windows.h>
 #include <d3dkmthk.h>
-#include <dxgi1_6.h>
 #include <winternl.h>  // Add this for NT_SUCCESS macro
 #include <iomanip>
 #include <iostream>
 #include <vector>
 
 #pragma comment(lib, "gdi32.lib")
-#pragma comment(lib, "dxgi.lib")
 
 #include "DeviceD3dkmt.h"
 #include "BackendD3dkmt.h"

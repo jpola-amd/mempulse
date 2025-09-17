@@ -14,14 +14,6 @@ target_include_directories(mempulse_backend_d3dkmt
 )
 
 target_link_libraries(mempulse_backend_d3dkmt
-	PRIVATE dxgi 
-	PRIVATE setupapi
+	PRIVATE gdi32 
 	PRIVATE mempulse_backend_hip
 )
-
-#target_link_libraries(mempulse_backend_d3dkmt 
-#	PRIVATE hip::host
-#)
-#target_link_directories(mempulse_backend_d3dkmt 
-#	PRIVATE ${HIP_LIB_INSTALL_DIR}
-#)
