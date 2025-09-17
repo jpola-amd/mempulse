@@ -1,5 +1,3 @@
-
-
 set(SOURCES
 	main.cpp
 )

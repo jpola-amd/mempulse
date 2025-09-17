@@ -18,7 +18,7 @@ public:
     MempulseDeviceMemoryUsage GetMemoryUsage() override;
 	std::string GetHardwareName() override;
 
-	Luid luid() const;
+	const Luid& luid() const;
     bool IsIntegrated() const;
 
  	int PciBusID() const;
@@ -27,6 +27,7 @@ public:
 
 private:
 	hipDeviceProp_t m_deviceProperties;
+	Luid m_luid;
 };
 
 } // namespace mempulse

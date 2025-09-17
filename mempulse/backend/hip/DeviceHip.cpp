@@ -13,6 +13,9 @@ DeviceHip::DeviceHip(const BackendHip&, int deviceId)
 
     err = hipGetDeviceProperties(&m_deviceProperties, deviceId);
 	CHECK_HIP(err, "can't get device properties");
+
+    assert(m_luid.size() == sizeof(m_deviceProperties.luid));
+	memcpy(m_luid.data(), m_deviceProperties.luid, m_luid.size());
 }
 
 MempulseDeviceMemoryInfo DeviceHip::GetMemoryInfo()
@@ -55,13 +58,9 @@ std::string DeviceHip::GetHardwareName()
 	return m_deviceProperties.name;
 }
 
-DeviceHip::Luid DeviceHip::luid() const
+const DeviceHip::Luid& DeviceHip::luid() const
 {
-    Luid luid;
-    static_assert(luid.size() == sizeof(m_deviceProperties.luid));
-
-	memcpy(luid.data(), m_deviceProperties.luid, luid.size());
-    return luid;
+    return m_luid;
 }
 
 bool DeviceHip::IsIntegrated() const {
