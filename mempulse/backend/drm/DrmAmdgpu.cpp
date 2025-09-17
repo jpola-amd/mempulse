@@ -7,7 +7,7 @@
 
 namespace mempulse {
 
-DrmAmdgpu::DrmAmdgpu(const DrmFileAmdgpu &file): m_drmFile(file) {
+DrmAmdgpu::DrmAmdgpu(const FileDrmAmdgpu &file): m_drmFile(file) {
 	MEMPULSE_LOG_TRACE();
 
 	if (!file.IsOpen())
@@ -44,6 +44,8 @@ drm_amdgpu_info_vram_gtt DrmAmdgpu::QueryVramGtt() {
 unsigned long long DrmAmdgpu::QueryGttUsage() {
 	MEMPULSE_LOG_TRACE();
 
+	assert(m_amdgpuDev);
+
 	uint64_t gttUsage;
 	int ret;
 
@@ -56,6 +58,8 @@ unsigned long long DrmAmdgpu::QueryGttUsage() {
 unsigned long long DrmAmdgpu::QueryVramUsage() {
 	MEMPULSE_LOG_TRACE();
 
+	assert(m_amdgpuDev);
+
 	uint64_t vramUsage;
 	int ret;
 
@@ -64,4 +68,5 @@ unsigned long long DrmAmdgpu::QueryVramUsage() {
 
 	return vramUsage;
 }
-}
+
+} // namespace mempulse

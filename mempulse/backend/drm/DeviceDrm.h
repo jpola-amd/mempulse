@@ -1,10 +1,7 @@
 #pragma once
 
-//#include "mempulse/Device.h"
 #include "mempulse/backend/hip/DeviceHip.h"
-#include "DrmFileAmdgpu.h"
-//#include "DrmDevice.h"
-//#include "DrmAmdgpu.h"
+#include "FileDrmAmdgpu.h"
 
 namespace mempulse {
 
@@ -16,17 +13,10 @@ public:
 
 	MempulseDeviceMemoryInfo GetMemoryInfo() override;
     MempulseDeviceMemoryUsage GetMemoryUsage() override;
-
-	//std::string GetHardwareName() override;
 private:
-	static DrmFileAmdgpu OpenDrmFile(short bus = -1);
+	static FileDrmAmdgpu OpenDrmFile(int bus = -1, int deviceId = -1);
 
-	DrmFileAmdgpu m_drmFile;
-
-    //DrmDevice m_drmDevice;
-    //DrmAmdgpu m_drmAmdgpu;
-
-
+	FileDrmAmdgpu m_drmFile;
 };
 
 } // namespace mempulse

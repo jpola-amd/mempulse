@@ -1,4 +1,4 @@
-#include "DrmFileAmdgpu.h"
+#include "FileDrmAmdgpu.h"
 #include "DrmVersionPtr.h"
 #include "Authentificate.h"
 #include "mempulse/Logging.h"
@@ -8,7 +8,7 @@
 
 namespace mempulse {
 
-DrmFileAmdgpu::DrmFileAmdgpu(const char* path)
+FileDrmAmdgpu::FileDrmAmdgpu(const char* path)
 	: File(path, Mode::ReadWrite) {
 
 	MEMPULSE_LOG_TRACE();
@@ -26,4 +26,4 @@ DrmFileAmdgpu::DrmFileAmdgpu(const char* path)
 	}
 }
 
-}
+} // namespace mempulse

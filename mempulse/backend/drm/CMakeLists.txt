@@ -7,9 +7,9 @@ set(HEADERS
 	DrmAmdgpu.h  
 	DrmDevice.h  
 	DrmDevices.h  
-	DrmFileAmdgpu.h  
 	DrmVersionPtr.h  
 	File.h  
+	FileDrmAmdgpu.h
 )
 set(SOURCES
 	Authentificate.cpp  
@@ -18,9 +18,9 @@ set(SOURCES
 	DrmAmdgpu.cpp  
 	DrmDevice.cpp  
 	DrmDevices.cpp  
-	DrmFileAmdgpu.cpp  
 	DrmVersionPtr.cpp
 	File.cpp  
+	FileDrmAmdgpu.cpp  
 )
 
 add_library(mempulse_backend_drm STATIC ${HEADERS} ${SOURCES})
