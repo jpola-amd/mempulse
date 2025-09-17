@@ -26,38 +26,14 @@ gpus the available shared memory is reported as dedicated memory.
 Small differences may occur due to sampling time, rounding, and how each tool interprets memory states.
 MemPulse provides a detailed breakdown of VRAM usage and availability, closely matching the values shown in Task Manager for dedicated GPU memory.
 
-# Building
-
-## Configure project
-```
-cmake -S . -B build
-```
-
-# Build 
-```
-cmake --build build --config Release
-```
-
-## Installation
-
-To install the library, use the `install` target provided by CMake:
-```
-cmake --install build --prefix /tmp/root
-```
-
-## Packaging
-
-To create a release package (e.g. .zip or .tar.gz), use the package target:
-
-```
-cmake --build --target package
-```
-
 # API 
 
 Api declaration may be found in [mempulse/mempulse.h](mempulse/mempulse.h)
 
-Full example project may be found in `example` directory.
+Example of usage may be found in [examples/example.cpp](examples/example.cpp)
+Example of cmake for integration with project [examples/CMakeLists.txt](examples/CMakeLists.txt)
+Full project may be found in `example` directory.
+
 
 ```cpp
 #include "mempulse/mempulse.h"
@@ -95,3 +71,59 @@ int main(int /*argc*/, char** /*argv*/) {
 }
 
 ```
+
+# Command line utility
+Mempulse provides command line utulity `gpumempulse`. 
+
+Example of usage:
+```
+gpumempulse
+
+
+```
+
+# Building
+## Dependencies on Linux
+* HIP 
+See [Quick start installation guide](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/quick-start.html)
+* drm library
+```
+apt get install libdrm-dev libdrm-amdgpu-dev
+```
+## Dependencies on Windows
+* HIP
+See [AMD HIP SDK for Windows](https://www.amd.com/en/developer/resources/rocm-hub/hip-sdk.html)
+This version is testing with HIP 6.2.4
+* DXDKMT - should be already provided by windows
+
+## Configure project
+```
+cmake -S . -B build
+```
+
+## Build 
+```
+cmake --build build --config Release
+```
+
+## Installation
+
+To install the library, use the `install` target provided by CMake:
+```
+cmake --install build --strip --prefix /tmp/root
+```
+
+Installation without stripping
+```
+cmake --install build --prefix /tmp/root
+```
+
+## Packaging
+
+To create a release package (e.g. .zip or .tar.gz), use the package target:
+
+```
+cmake --build build --target package
+```
+
+
