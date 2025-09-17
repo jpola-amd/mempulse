@@ -92,16 +92,22 @@ Free Memory: Shared:    31112 MB (30.3835 GB)
 # Building
 ## Dependencies on Linux
 * HIP 
+
 See [Quick start installation guide](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/quick-start.html)
+
 * drm library
 ```
 apt get install libdrm-dev libdrm-amdgpu-dev
 ```
 ## Dependencies on Windows
 * HIP
+
 See [AMD HIP SDK for Windows](https://www.amd.com/en/developer/resources/rocm-hub/hip-sdk.html)
+
 This version is testing with HIP 6.2.4
-* DXDKMT - should be already provided by windows
+* DXDKMT
+
+Should be already provided by windows
 
 ## Configure project
 ```
