@@ -96,10 +96,6 @@ install(
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-#install(TARGETS mempulse
-#	EXPORT MempulseTargets
-#    RUNTIME PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/mempulse)
-
 # ---------- Export targets (install tree) ----------
 install(
     EXPORT MempulseTargets
@@ -126,10 +122,14 @@ write_basic_package_version_file(
 )
 
 install(
-    FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/MempulseConfig.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/MempulseConfigVersion.cmake"
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/MempulseConfig.cmake"
+          "${CMAKE_CURRENT_BINARY_DIR}/MempulseConfigVersion.cmake"
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Mempulse
+)
+
+configure_file(${CMAKE_SOURCE_DIR}/files/mempulse.pc.in ${CMAKE_CURRENT_BINARY_DIR}/mempulse.pc @ONLY)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/mempulse.pc 
+	DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
 )
 
 # ---------- Export for the build tree (optional but handy) ----------

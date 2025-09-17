@@ -28,15 +28,36 @@ MemPulse provides a detailed breakdown of VRAM usage and availability, closely m
 
 # Building
 
-Building notes in `BUILD.me` file
+## Configure project
+```
+cmake -S . -B build
+```
 
-# API
+# Build 
+```
+cmake --build build --config Release
+```
 
-Api declaration ma be found in `mempulse/mempulse.h`
+## Installation
 
-## Example
+To install the library, use the `install` target provided by CMake:
+```
+cmake --install build --prefix /tmp/root
+```
 
-For full example with cmake, see  examples/README.md
+## Packaging
+
+To create a release package (e.g. .zip or .tar.gz), use the package target:
+
+```
+cmake --build --target package
+```
+
+# API 
+
+Api declaration may be found in [mempulse/mempulse.h](mempulse/mempulse.h)
+
+Full example project may be found in `example` directory.
 
 ```cpp
 #include "mempulse/mempulse.h"

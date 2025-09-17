@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(mempulse VERSION 1.0.1 LANGUAGES CXX)
+project(mempulse VERSION 1.0.3 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -52,20 +52,28 @@ endif()
 
 add_subdirectory(mempulse)
 if(BUILD_APPLICATION)
-	find_package(Boost REQUIRED COMPONENTS system log program_options)
 	add_subdirectory(application)
 endif()
 if(BUILD_EXAMPLES)
 	#add_subdirectory(examples)
 endif()
 if(BUILD_TESTS)
+	include(FetchContent)
+	FetchContent_Declare(
+  	  googletest
+  	  GIT_REPOSITORY https://github.com/google/googletest.git
+	  GIT_TAG v1.17.0
+	)
+
+	# Prevent GoogleTest from adding install targets
+	set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
+
+	FetchContent_MakeAvailable(googletest)
+
 	enable_testing()
-	find_package(GTest REQUIRED)
 	add_subdirectory(tests)
 endif()
 
-configure_file(files/mempulse.pc.in mempulse.pc @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/mempulse.pc DESTINATION lib/pkgconfig)
 
 # ---------------------------------------------------------------------
 # --- CPack Configuration ---
