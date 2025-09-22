@@ -31,10 +31,10 @@ template <class Function,
     }
 }
 
-#define check(status)        \
-    if (!status.has_value()) \
-        return status.error();
-
+#define check(status) do {     \
+    if (!status.has_value())   \
+        return status.error(); \
+    } while(0)
 
 
 } // namespace mempulse
