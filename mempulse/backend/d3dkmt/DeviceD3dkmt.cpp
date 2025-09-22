@@ -9,14 +9,12 @@
 #include "mempulse/Error.h"
 #include "mempulse/Logging.h"
 
-#include <iomanip>
-#include <iostream>
-#include <vector>
-
 namespace mempulse {
 
 static void QuerySegmentGroupUsage(LUID luid, D3DKMT_MEMORY_SEGMENT_GROUP group,
                                    D3DKMT_QUERYSTATISTICS_MEMORY_USAGE& usageInfo) {
+    MEMPULSE_LOG_TRACE();
+
     D3DKMT_QUERYSTATISTICS stats = {};
     stats.Type = D3DKMT_QUERYSTATISTICS_SEGMENT_GROUP_USAGE;
     stats.AdapterLuid = luid;
@@ -29,6 +27,8 @@ static void QuerySegmentGroupUsage(LUID luid, D3DKMT_MEMORY_SEGMENT_GROUP group,
 }
 
 static inline UINT64 GetTotalMemory(const D3DKMT_QUERYSTATISTICS_MEMORY_USAGE& usage) {
+    MEMPULSE_LOG_TRACE();
+
     return usage.AllocatedBytes + usage.FreeBytes + usage.ZeroBytes + usage.ModifiedBytes +
            usage.StandbyBytes;
 }
