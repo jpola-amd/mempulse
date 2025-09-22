@@ -1,12 +1,18 @@
 #include <gtest/gtest.h>
 #include "mempulse/mempulse.h"
 
-struct TestDevice : public ::testing::Test {
+struct TestDevice : public ::testing::TestWithParam<MempulseBackend> {
 	void SetUp() {
 		MempulseError err;
 
-		err = MempulseInitialize(&context);
+		const MempulseBackend backend = GetParam();
+
+		err = MempulseInitialize(&context, backend);
 		ASSERT_EQ(err, MEMPULSE_SUCCESS);
+
+		err = MempulseSetLoggingLevel(0);
+		ASSERT_EQ(err, MEMPULSE_SUCCESS);
+
 	}
 
 	void TearDown() {
@@ -18,7 +24,7 @@ struct TestDevice : public ::testing::Test {
 	MempulseContext context;
 };
 
-TEST_F(TestDevice, count) {
+TEST_P(TestDevice, count) {
 	MempulseError err;
 	int deviceCount;
 
@@ -26,13 +32,13 @@ TEST_F(TestDevice, count) {
 	EXPECT_EQ(err, MEMPULSE_SUCCESS);
 }
 
-TEST_F(TestDevice, nullptr_count) {
+TEST_P(TestDevice, nullptr_count) {
 	MempulseError err;
 	err = MempulseGetAvailabeDeviceCount(context, nullptr);
 	EXPECT_EQ(err, MEMPULSE_ERROR_INVALID_PARAMETER);
 }
 
-TEST_F(TestDevice, get_memory_info_device_0) {
+TEST_P(TestDevice, get_memory_info_device_0) {
 	MempulseError err;
 
 	int deviceCount;
@@ -50,7 +56,7 @@ TEST_F(TestDevice, get_memory_info_device_0) {
 	EXPECT_GT(info.dedicatedUsed, 0);
 }
 
-TEST_F(TestDevice, get_memory_info_device_0_bad_ptr) {
+TEST_P(TestDevice, get_memory_info_device_0_bad_ptr) {
 	MempulseError err;
 
 	int deviceCount;
@@ -63,7 +69,7 @@ TEST_F(TestDevice, get_memory_info_device_0_bad_ptr) {
 	EXPECT_EQ(err, MEMPULSE_ERROR_INVALID_PARAMETER);
 }
 
-TEST_F(TestDevice, get_memory_usage_device_0) {
+TEST_P(TestDevice, get_memory_usage_device_0) {
 	MempulseError err;
 
 	int deviceCount;
@@ -80,3 +86,19 @@ TEST_F(TestDevice, get_memory_usage_device_0) {
 	EXPECT_GT(usage.free, 0);
 	EXPECT_GT(usage.total, 0);
 }
+
+// ----------------------------------------------------------------------
+
+#ifdef _WIN32
+INSTANTIATE_TEST_SUITE_P(TestBackend, TestDevice,
+                         ::testing::Values(MempulseBackend::MEMPULSE_BACKEND_HIP,
+                                           MempulseBackend::MEMPULSE_BACKEND_D3DKMT,
+                                           MempulseBackend::MEMPULSE_BACKEND_ANY
+							 ));
+#else
+INSTANTIATE_TEST_SUITE_P(TestBackend, TestDevice,
+                         ::testing::Values(MempulseBackend::MEMPULSE_BACKEND_HIP,
+                                           MempulseBackend::MEMPULSE_BACKEND_DRM,
+                                           MempulseBackend::MEMPULSE_BACKEND_ANY
+
+#endif
