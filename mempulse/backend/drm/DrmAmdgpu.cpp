@@ -2,8 +2,7 @@
 #include "ErrorDrm.h"
 
 #include "mempulse/Logging.h"
-
-#include <cassert>
+#include "mempulse/Assert.h"
 
 namespace mempulse {
 
@@ -31,7 +30,7 @@ DrmAmdgpu::~DrmAmdgpu() {
 drm_amdgpu_info_vram_gtt DrmAmdgpu::QueryVramGtt() {
 	MEMPULSE_LOG_TRACE();
 
-	assert(m_amdgpuDev);
+	assert_with_message(m_amdgpuDev, "m_amdgpuDev is nullptr");
 
 	drm_amdgpu_info_vram_gtt vramGtt;
 
@@ -45,7 +44,7 @@ drm_amdgpu_info_vram_gtt DrmAmdgpu::QueryVramGtt() {
 unsigned long long DrmAmdgpu::QueryGttUsage() {
 	MEMPULSE_LOG_TRACE();
 
-	assert(m_amdgpuDev);
+	assert_with_message(m_amdgpuDev, "m_amdgpuDev is nullptr");
 
 	uint64_t gttUsage;
 	int ret;
@@ -59,7 +58,7 @@ unsigned long long DrmAmdgpu::QueryGttUsage() {
 unsigned long long DrmAmdgpu::QueryVramUsage() {
 	MEMPULSE_LOG_TRACE();
 
-	assert(m_amdgpuDev);
+	assert_with_message(m_amdgpuDev, "m_amdgpuDev is nullptr");
 
 	uint64_t vramUsage;
 	int ret;

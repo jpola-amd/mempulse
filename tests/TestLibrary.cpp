@@ -22,7 +22,7 @@ TEST_P(TestLibrary, get_version) {
 
 #ifdef _WIN32
 INSTANTIATE_TEST_SUITE_P(
-		GenericInit,
+		Generic,
 		TestLibrary,
         ::testing::Values(
 			MempulseBackend::MEMPULSE_BACKEND_HIP,
@@ -30,7 +30,7 @@ INSTANTIATE_TEST_SUITE_P(
             MempulseBackend::MEMPULSE_BACKEND_ANY));
 #else
 INSTANTIATE_TEST_SUITE_P(
-		GenericInit,
+		Generic,
 		TestLibrary,
 		::testing::Values(
 			MempulseBackend::MEMPULSE_BACKEND_HIP,

@@ -27,7 +27,7 @@ set (TESTS
 foreach(test ${TESTS})
 	add_test(
 			NAME ${test}
-			COMMAND mempulse_test --gtest_filter=Test${test}.*
+			COMMAND mempulse_test --gtest_filter=Generic/Test${test}.*
 			WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 		)
 		set (TEST_SOURCES ${TEST_SOURCES} Test${test}.cpp)

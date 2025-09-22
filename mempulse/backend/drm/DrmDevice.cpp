@@ -1,8 +1,8 @@
 #include "DrmDevice.h"
 #include "ErrorDrm.h"
 #include "mempulse/Logging.h"
+#include "mempulse/Assert.h"
 #include <xf86drm.h>
-#include <cassert>
 
 namespace mempulse {
 
@@ -37,8 +37,8 @@ DrmDevice::~DrmDevice() {
 short DrmDevice::GetBus() const {
 	MEMPULSE_LOG_TRACE();
 
-	assert(m_pDrmDevicePtr);
-	assert(m_pDrmDevicePtr->businfo.pci);
+	assert_with_message(m_pDrmDevicePtr, "m_pDrmDevicePtr is nullptr");
+	assert_with_message(m_pDrmDevicePtr->businfo.pci, "m_pDrmDevicePtr->businfo.pci is nullptr");
 
 	return m_pDrmDevicePtr->businfo.pci->bus;
 }
@@ -46,10 +46,10 @@ short DrmDevice::GetBus() const {
 unsigned int DrmDevice::GetDeviceId() const {
 	MEMPULSE_LOG_TRACE();
 
-	assert(m_pDrmDevicePtr);
-	assert(m_pDrmDevicePtr->businfo.pci);
+	assert_with_message(m_pDrmDevicePtr, "m_pDrmDevicePtr is nullptr");
+	assert_with_message(m_pDrmDevicePtr->businfo.pci, "m_pDrmDevicePtr->businfo.pci is nullptr");
 
 	return  m_pDrmDevicePtr->deviceinfo.pci->device_id;
 }
 
-}
+} // namespace mempulse
