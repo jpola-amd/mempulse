@@ -9,7 +9,6 @@ option(MEMPULSE_EXPORT_API "Export dll symbols" ON)
 option(BUILD_BACKEND_DRM "Build DRM backend (linux only)" ${UNIX})
 option(BUILD_BACKEND_HIP "Build HIP backend" ON)
 option(BUILD_BACKEND_D3DKMT "Build D3D kmt backend (windows only)" ${WIN32})
-option(BUILD_EXAMPLES "Build basic example" OFF)
 option(BUILD_TESTS "Build tests" ON)
 option(BUILD_APPLICATION "Build command line application" ON)
 set(HIP_PLATFORM "amd" CACHE STRING "Choose between AMD and NVIDIA")
@@ -25,7 +24,6 @@ endif()
 
 include("${CMAKE_SOURCE_DIR}/cmake/CompileOptions.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/WindowsFileVersion.cmake")
-include("${CMAKE_SOURCE_DIR}/cmake/CopyFileToTarget.cmake")
 
 if (BUILD_BACKEND_DRM)
 	message(STATUS "Enable backend DRM (Linux)")
@@ -54,26 +52,10 @@ add_subdirectory(mempulse)
 if(BUILD_APPLICATION)
 	add_subdirectory(application)
 endif()
-if(BUILD_EXAMPLES)
-	#add_subdirectory(examples)
-endif()
 if(BUILD_TESTS)
-	include(FetchContent)
-	FetchContent_Declare(
-  	  googletest
-  	  GIT_REPOSITORY https://github.com/google/googletest.git
-	  GIT_TAG v1.17.0
-	)
-
-	# Prevent GoogleTest from adding install targets
-	set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
-
-	FetchContent_MakeAvailable(googletest)
-
 	enable_testing()
 	add_subdirectory(tests)
 endif()
-
 
 # ---------------------------------------------------------------------
 # --- CPack Configuration ---
