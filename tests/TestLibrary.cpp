@@ -21,18 +21,21 @@ TEST_P(TestLibrary, get_version) {
 }
 
 #ifdef _WIN32
-INSTANTIATE_TEST_SUITE_P(GenericInit, TestLibrary,
-                         ::testing::Values(MempulseBackend::MEMPULSE_BACKEND_HIP,
-                                           MempulseBackend::MEMPULSE_BACKEND_D3DKMT,
-                                           MempulseBackend::MEMPULSE_BACKEND_ANY
-							 ));
+INSTANTIATE_TEST_SUITE_P(
+		GenericInit,
+		TestLibrary,
+        ::testing::Values(
+			MempulseBackend::MEMPULSE_BACKEND_HIP,
+            MempulseBackend::MEMPULSE_BACKEND_D3DKMT,
+            MempulseBackend::MEMPULSE_BACKEND_ANY));
 #else
-INSTANTIATE_TEST_SUITE_P(GenericInit, TestLibrary,
-                         ::testing::Values(MempulseBackend::MEMPULSE_BACKEND_HIP,
-                                           MempulseBackend::MEMPULSE_BACKEND_DRM,
-                                           MempulseBackend::MEMPULSE_BACKEND_ANY
+INSTANTIATE_TEST_SUITE_P(
+		GenericInit,
+		TestLibrary,
+		::testing::Values(
+			MempulseBackend::MEMPULSE_BACKEND_HIP,
+			MempulseBackend::MEMPULSE_BACKEND_DRM,
+			MempulseBackend::MEMPULSE_BACKEND_ANY));
 
 #endif
-
-
 

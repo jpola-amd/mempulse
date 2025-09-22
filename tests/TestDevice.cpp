@@ -90,15 +90,17 @@ TEST_P(TestDevice, get_memory_usage_device_0) {
 // ----------------------------------------------------------------------
 
 #ifdef _WIN32
-INSTANTIATE_TEST_SUITE_P(TestBackend, TestDevice,
-                         ::testing::Values(MempulseBackend::MEMPULSE_BACKEND_HIP,
-                                           MempulseBackend::MEMPULSE_BACKEND_D3DKMT,
-                                           MempulseBackend::MEMPULSE_BACKEND_ANY
-							 ));
+INSTANTIATE_TEST_SUITE_P(
+		TestBackend,
+		TestDevice,
+        ::testing::Values(MempulseBackend::MEMPULSE_BACKEND_HIP,
+                          MempulseBackend::MEMPULSE_BACKEND_D3DKMT,
+                          MempulseBackend::MEMPULSE_BACKEND_ANY));
 #else
-INSTANTIATE_TEST_SUITE_P(TestBackend, TestDevice,
-                         ::testing::Values(MempulseBackend::MEMPULSE_BACKEND_HIP,
-                                           MempulseBackend::MEMPULSE_BACKEND_DRM,
-                                           MempulseBackend::MEMPULSE_BACKEND_ANY
-
+INSTANTIATE_TEST_SUITE_P(
+		TestBackend,
+		TestDevice,
+		::testing::Values(MempulseBackend::MEMPULSE_BACKEND_HIP,
+                          MempulseBackend::MEMPULSE_BACKEND_DRM,
+                          MempulseBackend::MEMPULSE_BACKEND_ANY));
 #endif
