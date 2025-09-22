@@ -1,5 +1,5 @@
 set(HEADERS
-	check_hip.h
+	CheckHip.h
 	DeviceHip.h
 	BackendHip.h
 )

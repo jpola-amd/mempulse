@@ -1,6 +1,6 @@
 #include "DeviceHip.h"
 #include "BackendHip.h"
-#include "check_hip.h"
+#include "CheckHip.h"
 #include "mempulse/Logging.h"
 
 namespace mempulse {

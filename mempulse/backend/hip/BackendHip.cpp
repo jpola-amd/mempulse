@@ -1,7 +1,7 @@
 #include "BackendHip.h"
 #include "DeviceHip.h"
 #include "mempulse/Logging.h"
-#include "check_hip.h"
+#include "CheckHip.h"
 
 #include <hip/hip_runtime.h>
 
