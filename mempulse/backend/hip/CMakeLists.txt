@@ -2,6 +2,7 @@ set(HEADERS
 	ErrorHip.h
 	DeviceHip.h
 	BackendHip.h
+	HipRuntime.h
 )
 set(SOURCES
 	ErrorHip.cpp

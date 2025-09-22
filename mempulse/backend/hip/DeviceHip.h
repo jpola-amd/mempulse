@@ -1,7 +1,7 @@
 #pragma once
 
 #include "mempulse/Device.h"
-#include <hip/hip_runtime.h>
+#include "HipRuntime.h"
 #include <array>
 
 namespace mempulse {

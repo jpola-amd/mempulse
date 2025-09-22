@@ -1,8 +1,7 @@
 #pragma once
 
 #include "mempulse/Error.h"
-
-#include "hip/hip_runtime.h"
+#include "HipRuntime.h"
 
 namespace mempulse {
 

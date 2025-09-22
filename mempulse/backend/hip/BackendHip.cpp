@@ -1,9 +1,8 @@
 #include "BackendHip.h"
 #include "DeviceHip.h"
-#include "mempulse/Logging.h"
 #include "ErrorHip.h"
 
-#include <hip/hip_runtime.h>
+#include "mempulse/Logging.h"
 
 namespace mempulse {
 
