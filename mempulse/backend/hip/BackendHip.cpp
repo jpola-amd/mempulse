@@ -12,6 +12,11 @@ BackendHip::BackendHip() {
     hipError_t err = hipInit(0);
 	check_hip(err, "failed to initalize hip");
 }
+BackendHip::~BackendHip() {
+	MEMPULSE_LOG_TRACE();
+
+	[[maybe_unused]] hipError_t err = hipDeviceReset();
+}
 
 int BackendHip::GetDeviceCount() {
 	MEMPULSE_LOG_TRACE();
