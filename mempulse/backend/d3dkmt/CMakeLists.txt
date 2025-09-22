@@ -1,8 +1,10 @@
 set(HEADERS
+	ErrorD3dkmt.h
 	DeviceD3dkmt.h
 	BackendD3dkmt.h
 )
 set(SOURCES
+	ErrorD3dkmt.cpp
 	DeviceD3dkmt.cpp
 	BackendD3dkmt.cpp
 )

@@ -1,18 +1,20 @@
 #include <Windows.h>
 #include <d3dkmthk.h>
 #include <winternl.h>  // Add this for NT_SUCCESS macro
-#include <iomanip>
-#include <iostream>
-#include <vector>
-
 #pragma comment(lib, "gdi32.lib")
 
 #include "DeviceD3dkmt.h"
+#include "ErrorD3dkmt.h"
 #include "BackendD3dkmt.h"
 #include "mempulse/Error.h"
 #include "mempulse/Logging.h"
 
-namespace {
+#include <iomanip>
+#include <iostream>
+#include <vector>
+
+namespace mempulse {
+
 static void QuerySegmentGroupUsage(LUID luid, D3DKMT_MEMORY_SEGMENT_GROUP group,
                                    D3DKMT_QUERYSTATISTICS_MEMORY_USAGE& usageInfo) {
     D3DKMT_QUERYSTATISTICS stats = {};
@@ -21,20 +23,15 @@ static void QuerySegmentGroupUsage(LUID luid, D3DKMT_MEMORY_SEGMENT_GROUP group,
     stats.QuerySegmentGroupUsage.SegmentGroup = group;
 
     NTSTATUS status = D3DKMTQueryStatistics(&stats);
-    if (NT_SUCCESS(status)) {
-        usageInfo = stats.QueryResult.SegmentGroupUsageInformation;
-    } else {
-        throw mempulse::ErrorInternal("D3DKMTQueryStatistics");
-    }
+    check_d3dkmt(status, "QuerySegmentGroupUsage. D3DKMTQueryStatistics");
+
+    usageInfo = stats.QueryResult.SegmentGroupUsageInformation;
 }
 
 static inline UINT64 GetTotalMemory(const D3DKMT_QUERYSTATISTICS_MEMORY_USAGE& usage) {
     return usage.AllocatedBytes + usage.FreeBytes + usage.ZeroBytes + usage.ModifiedBytes +
            usage.StandbyBytes;
 }
-}  // namespace
-
-namespace mempulse {
 
 DeviceD3dkmt::DeviceD3dkmt(const BackendD3dkmt& context, int deviceId)
     : DeviceHip(context, deviceId) {
@@ -58,7 +55,7 @@ MempulseDeviceMemoryInfo DeviceD3dkmt::GetMemoryInfo() {
 
     D3DKMT_QUERYSTATISTICS_MEMORY_USAGE nonLocalUsage = {};
     memset(&nonLocalUsage, 0, sizeof(nonLocalUsage));
-    if (m_isIntegrated) {
+    if (IsIntegrated()) {
         QuerySegmentGroupUsage(dx_luid, D3DKMT_MEMORY_SEGMENT_GROUP_NON_LOCAL, nonLocalUsage);
     }
 

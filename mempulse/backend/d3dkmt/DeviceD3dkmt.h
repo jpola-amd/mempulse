@@ -12,8 +12,6 @@ public:
 
     MempulseDeviceMemoryInfo GetMemoryInfo() override;
     MempulseDeviceMemoryUsage GetMemoryUsage() override;
-private:
-    bool m_isIntegrated = false;
 };
 
 }  // namespace mempulse

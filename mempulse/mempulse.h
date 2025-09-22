@@ -58,6 +58,7 @@ typedef enum MempulseError {
 	MEMPULSE_ERROR_INVALID_DEVICE = -5,
 	MEMPULSE_ERROR_HIP = -6,
 	MEMPULSE_ERROR_DRM = -7,
+	MEMPULSE_ERROR_D3DKMT = -8,
 } MempulseError;
 
 typedef enum MempulseBackend {
