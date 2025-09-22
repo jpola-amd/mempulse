@@ -7,8 +7,6 @@
 #include "SafeCall.h"
 #include "Logging.h"
 
-#include <string.h>
-
 using namespace mempulse;
 
 MempulseError MempulseInitialize(MempulseContext* context, MempulseBackend backend) {

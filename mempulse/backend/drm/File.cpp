@@ -56,8 +56,10 @@ File& File::operator=(const File& file) noexcept {
 
 	Close();
 
-	if (file.m_fd >= 0)
-		m_fd = dup(file.m_fd);
+	if (file.m_fd < 0)
+		return *this;
+
+	m_fd = dup(file.m_fd);
 
 	return *this;
 }
@@ -94,7 +96,8 @@ void File::Close() noexcept {
 		return;
 
 	close(m_fd);
+
 	m_fd = -1;
 }
 
-}
+} // namespace mempulse
