@@ -1,6 +1,7 @@
 #include "DeviceHip.h"
 #include "BackendHip.h"
 #include "ErrorHip.h"
+#include "mempulse/Assert.h"
 #include "mempulse/Logging.h"
 
 namespace mempulse {
@@ -14,7 +15,7 @@ DeviceHip::DeviceHip(const BackendHip&, int deviceId)
     err = hipGetDeviceProperties(&m_deviceProperties, deviceId);
 	check_hip(err, "can't get device properties");
 
-    assert(m_luid.size() == sizeof(m_deviceProperties.luid));
+    assert_with_message(m_luid.size() == sizeof(m_deviceProperties.luid), "different LUID sizes");
 	memcpy(m_luid.data(), m_deviceProperties.luid, m_luid.size());
 }
 

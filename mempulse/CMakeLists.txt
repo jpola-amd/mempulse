@@ -16,6 +16,7 @@ configure_file(
 )
 
 set(HEADERS
+	Assert.h
 	Device.h  
 	Error.h  
 	Backend.h  
