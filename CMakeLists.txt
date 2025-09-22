@@ -11,6 +11,7 @@ option(BUILD_BACKEND_HIP "Build HIP backend" ON)
 option(BUILD_BACKEND_D3DKMT "Build D3D kmt backend (windows only)" ${WIN32})
 option(BUILD_TESTS "Build tests" ON)
 option(BUILD_APPLICATION "Build command line application" ON)
+option(ENABLE_ASAN "Enable adress sanitizer via libasan" ON)
 option(FORCE_COLORED_OUTPUT "Force gcc/lvm diagnostic color output" OFF)
 set(HIP_PLATFORM "amd" CACHE STRING "Choose between AMD and NVIDIA")
 
