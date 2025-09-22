@@ -20,7 +20,7 @@ static void QuerySegmentGroupUsage(LUID luid, D3DKMT_MEMORY_SEGMENT_GROUP group,
     D3DKMT_QUERYSTATISTICS stats = {};
     stats.Type = D3DKMT_QUERYSTATISTICS_SEGMENT_GROUP_USAGE;
     stats.AdapterLuid = luid;
-    stats.QuerySegmentGroupUsage.SegmentGroup = group;
+    stats.QuerySegmentGroupUsage.SegmentGroup = static_cast<UINT16>(group);
 
     NTSTATUS status = D3DKMTQueryStatistics(&stats);
     check_d3dkmt(status, "QuerySegmentGroupUsage. D3DKMTQueryStatistics");
