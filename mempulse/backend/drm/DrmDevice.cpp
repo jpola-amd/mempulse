@@ -1,5 +1,5 @@
 #include "DrmDevice.h"
-#include "CheckDrm.h"
+#include "ErrorDrm.h"
 #include "mempulse/Logging.h"
 #include <xf86drm.h>
 #include <cassert>
@@ -10,18 +10,18 @@ DrmDevice::DrmDevice(const File& file) {
 	MEMPULSE_LOG_TRACE();
 
 	if (!file.IsOpen())
-		throw std::runtime_error("DrmDevice::DrmDevice: file is not open");
+		throw ErrorDrm("DrmDevice::DrmDevice: file is not open");
 
 	int err;
 	err = drmGetDevice2(file, 0, &m_pDrmDevicePtr);
-	check_drm(err, "Failed to get device info ");
+	check_drm(err, "failed to get device info ");
 
 	if (!m_pDrmDevicePtr) {
-		throw std::runtime_error("drmGetDevice2 returned nullptr");
+		throw ErrorDrm("drmGetDevice2 returned nullptr");
 	}
 
 	if (m_pDrmDevicePtr->bustype != DRM_BUS_PCI) {
-		throw std::runtime_error("Unsupported bus type");
+		throw ErrorDrm("unsupported bus type");
 	}
 }
 

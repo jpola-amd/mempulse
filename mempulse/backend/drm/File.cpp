@@ -1,9 +1,10 @@
 #include "File.h"
+#include "ErrorDrm.h"
 #include "mempulse/Logging.h"
 
 #include <unistd.h>
 #include <fcntl.h>
-#include <stdexcept>
+
 
 namespace mempulse {
 
@@ -16,7 +17,7 @@ inline int to_flags(File::Mode mode) {
 		default:
 			break;
 	}
-	MEMPULSE_LOG_ERROR("File: to_flags. Unkown File::mode. Force flag 0");
+	MEMPULSE_LOG_ERROR("file: to_flags. Unkown File::mode. Force flag 0");
 	return 0;
 }
 
@@ -33,8 +34,9 @@ File::File(File&& file) noexcept : m_fd(file.m_fd) {
 File::File(const char* path, File::Mode mode):
  m_fd(open(path, to_flags(mode))) {
 	MEMPULSE_LOG_TRACE();
+
 	if (m_fd < 0)
-		throw std::runtime_error("Could not open file");
+		throw ErrorDrm("can't open file " + std::string(path));
 }
 
 File::File(const File& file) noexcept {

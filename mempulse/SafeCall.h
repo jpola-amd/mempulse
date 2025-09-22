@@ -20,13 +20,14 @@ template <class Function,
             return {};
         }
     }  catch (const Error& e) {
+        MEMPULSE_LOG_ERROR(e.what());
         return std::unexpected(static_cast<MempulseError>(e.getErrorCode()));
 	} catch (const std::exception& e) {
         MEMPULSE_LOG_ERROR(e.what());
-        return std::unexpected(MEMPULSE_INTERNAL_ERROR);
+        return std::unexpected(MEMPULSE_ERROR_INTERNAL);
     } catch (...) {
         MEMPULSE_LOG_ERROR("unkown error");
-        return std::unexpected(MEMPULSE_INTERNAL_ERROR);
+        return std::unexpected(MEMPULSE_ERROR_INTERNAL);
     }
 }
 

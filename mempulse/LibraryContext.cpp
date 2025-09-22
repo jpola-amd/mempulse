@@ -80,7 +80,7 @@ LibraryContext::BackendPtr LibraryContext::createBackend(MempulseBackend backend
 LibraryContext* get_ctx(void* context) {
 	LibraryContext* ctx =  static_cast<LibraryContext*>(context);
 	if (!ctx)
-		throw ErrorInvalidContext();
+		throw ErrorInvalidParameter("context", "context is nullptr");
 
 	return ctx;
 }

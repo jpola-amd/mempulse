@@ -1,8 +1,9 @@
 #include "Authentificate.h"
+#include "ErrorDrm.h"
+#include "mempulse/Logging.h"
 #include <drm.h>
 #include <xf86drm.h>
-#include <stdexcept>
-#include "mempulse/Logging.h"
+
 
 namespace mempulse {
 void Authentificate(const File& file) {
@@ -18,7 +19,7 @@ void Authentificate(const File& file) {
 	/* Try self-authenticate (if we are somehow the master). */
 	if (drmAuthMagic(file, magic) == 0) {
 		if (drmDropMaster(file)) {
-			throw std::runtime_error("Failed to call drmDropMaster");
+			throw ErrorDrm("failed to call drmDropMaster");
 		}
 	}
 }

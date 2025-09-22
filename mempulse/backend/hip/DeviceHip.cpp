@@ -1,6 +1,6 @@
 #include "DeviceHip.h"
 #include "BackendHip.h"
-#include "CheckHip.h"
+#include "ErrorHip.h"
 #include "mempulse/Logging.h"
 
 namespace mempulse {
@@ -12,7 +12,7 @@ DeviceHip::DeviceHip(const BackendHip&, int deviceId)
 	hipError_t err;
 
     err = hipGetDeviceProperties(&m_deviceProperties, deviceId);
-	CHECK_HIP(err, "can't get device properties");
+	check_hip(err, "can't get device properties");
 
     assert(m_luid.size() == sizeof(m_deviceProperties.luid));
 	memcpy(m_luid.data(), m_deviceProperties.luid, m_luid.size());
@@ -25,11 +25,11 @@ MempulseDeviceMemoryInfo DeviceHip::GetMemoryInfo()
 	hipError_t err;
 
 	err = hipSetDevice(GetHardwareId());
-	CHECK_HIP(err, "failed to execute hipSetDevice");
+	check_hip(err, "failed to execute hipSetDevice");
 
     size_t free = 0, total = 0;
     err = hipMemGetInfo(&free, &total);
-	CHECK_HIP(err, "can't execute hipMemGetInfo");
+	check_hip(err, "can't execute hipMemGetInfo");
 
 	return {
 		.dedicatedUsed = total - free,

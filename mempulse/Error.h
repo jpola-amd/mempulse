@@ -21,12 +21,19 @@ public:
 
 class ErrorInvalidParameter : public Error {
 public:
-    explicit ErrorInvalidParameter(const std::string& parameterName, const std::string& message);
+    explicit ErrorInvalidParameter(
+			const std::string& parameterName,
+			const std::string& message);
 };
 
 class ErrorInvalidContext : public Error {
 public:
 	explicit ErrorInvalidContext();
+};
+
+class ErrorInvalidMemory : public Error {
+public:
+	explicit ErrorInvalidMemory();
 };
 
 class ErrorInvalidDevice : public Error {

@@ -35,11 +35,11 @@ MempulseError MempulseShutdown(MempulseContext context) {
 	return MEMPULSE_SUCCESS;
 }
 
-MEMPULSE_API MempulseError MempulseSetLoggingLevel(int level)
-{
+MEMPULSE_API MempulseError MempulseSetLoggingLevel(int level) {
 	MEMPULSE_LOG_TRACE();
 
 	MEMPULSE_LOGGING_LEVEL = level;
+
 	return MEMPULSE_SUCCESS;
 }
 
@@ -76,6 +76,9 @@ MempulseError MempulseGetDeviceName(
 			throw ErrorInvalidParameter("deviceName", "must be not null");
 
 		auto device = ctx->backend()->createDevice(deviceIndex);
+		if (!device) {
+			throw ErrorInvalidDevice(deviceIndex);
+		}
 
 		const std::string gpuDeviceName = device->GetHardwareName();
 
@@ -141,12 +144,16 @@ MEMPULSE_API MempulseError MempulseGetDeviceMemoryUsage(
 
 void MempulsePrintDeviceMemoryInfo(
 		const MempulseDeviceMemoryInfo& deviceMemoryInfo) {
+	MEMPULSE_LOG_TRACE();
+
 	std::cout << deviceMemoryInfo << std::endl;
 }
 
 MEMPULSE_API void MempulsePrintDeviceMemoryUsage(
 		const MempulseDeviceMemoryUsage& deviceMemoryUsage)
 {
+	MEMPULSE_LOG_TRACE();
+
     std::cout << deviceMemoryUsage << std::endl;
 }
 

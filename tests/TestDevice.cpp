@@ -29,7 +29,7 @@ TEST_F(TestDevice, count) {
 TEST_F(TestDevice, nullptr_count) {
 	MempulseError err;
 	err = MempulseGetAvailabeDeviceCount(context, nullptr);
-	EXPECT_EQ(err, MEMPULSE_INVALID_PARAMETER);
+	EXPECT_EQ(err, MEMPULSE_ERROR_INVALID_PARAMETER);
 }
 
 TEST_F(TestDevice, get_memory_info_device_0) {
@@ -60,7 +60,7 @@ TEST_F(TestDevice, get_memory_info_device_0_bad_ptr) {
 	ASSERT_GT(deviceCount, 0);
 
 	err = MempulseGetDeviceMemoryInfo(context, 0, nullptr);
-	EXPECT_EQ(err, MEMPULSE_INVALID_PARAMETER);
+	EXPECT_EQ(err, MEMPULSE_ERROR_INVALID_PARAMETER);
 }
 
 TEST_F(TestDevice, get_memory_usage_device_0) {

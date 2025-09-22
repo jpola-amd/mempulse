@@ -1,11 +1,12 @@
 #include "DeviceDrm.h"
-#include "BackendDrm.h"
-#include "mempulse/Logging.h"
-#include "DrmDevices.h"
 #include "Defines.h"
-
+#include "BackendDrm.h"
+#include "DrmDevices.h"
 #include "DrmDevice.h"
 #include "DrmAmdgpu.h"
+#include "ErrorDrm.h"
+
+#include "mempulse/Logging.h"
 
 #include <sstream>
 
@@ -38,7 +39,7 @@ DeviceDrm::DeviceDrm(const BackendDrm& backend, int deviceId)
   m_drmFile(OpenDrmFile(PciBusID(), PciDeviceID()))
 {
 	MEMPULSE_LOG_TRACE();
-	MEMPULSE_LOG_DEBUG("successfully init device drm");
+	MEMPULSE_LOG_DEBUG("successfully init device drm device " + std::to_string(deviceId));
 }
 
 MempulseDeviceMemoryInfo DeviceDrm::GetMemoryInfo()
@@ -113,7 +114,7 @@ FileDrmAmdgpu DeviceDrm::OpenDrmFile(int bus, int deviceId)
 		}
 	} // foreach devs
 
-	throw std::runtime_error("can't create device");
+	throw ErrorDrm("can't open drm device " + std::to_string(deviceId));
 }
 
 } // namespace mempulse

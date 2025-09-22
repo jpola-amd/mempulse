@@ -14,7 +14,8 @@ public:
 	MempulseDeviceMemoryInfo GetMemoryInfo() override;
     MempulseDeviceMemoryUsage GetMemoryUsage() override;
 private:
-	static FileDrmAmdgpu OpenDrmFile(int bus = -1, int deviceId = -1);
+	//static FileDrmAmdgpu OpenDrmFile(int bus = -1, int deviceId = -1);
+	static FileDrmAmdgpu OpenDrmFile(int bus, int deviceId);
 
 	FileDrmAmdgpu m_drmFile;
 };

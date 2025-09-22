@@ -1,7 +1,7 @@
 #include "BackendHip.h"
 #include "DeviceHip.h"
 #include "mempulse/Logging.h"
-#include "CheckHip.h"
+#include "ErrorHip.h"
 
 #include <hip/hip_runtime.h>
 
@@ -11,7 +11,7 @@ BackendHip::BackendHip() {
 	MEMPULSE_LOG_TRACE();
 
     hipError_t err = hipInit(0);
-	CHECK_HIP(err, "failed to initalize hip");
+	check_hip(err, "failed to initalize hip");
 }
 
 int BackendHip::GetDeviceCount() {
@@ -20,7 +20,7 @@ int BackendHip::GetDeviceCount() {
 	int deviceCount;
 
     hipError_t err = hipGetDeviceCount(&deviceCount);
-	CHECK_HIP(err, "failed to get device count");
+	check_hip(err, "failed to get device count");
 
 	return deviceCount;
 }

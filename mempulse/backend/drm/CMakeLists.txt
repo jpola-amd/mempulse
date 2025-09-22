@@ -1,13 +1,13 @@
 set(HEADERS
 	Authentificate.h  
 	BackendDrm.h  
-	CheckDrm.h  
 	Defines.h  
 	DeviceDrm.h  
 	DrmAmdgpu.h  
 	DrmDevice.h  
 	DrmDevices.h  
 	DrmVersionPtr.h  
+	ErrorDrm.h
 	File.h  
 	FileDrmAmdgpu.h
 )
@@ -19,6 +19,7 @@ set(SOURCES
 	DrmDevice.cpp  
 	DrmDevices.cpp  
 	DrmVersionPtr.cpp
+	ErrorDrm.cpp
 	File.cpp  
 	FileDrmAmdgpu.cpp  
 )

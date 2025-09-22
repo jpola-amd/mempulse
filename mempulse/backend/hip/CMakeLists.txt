@@ -1,9 +1,10 @@
 set(HEADERS
-	CheckHip.h
+	ErrorHip.h
 	DeviceHip.h
 	BackendHip.h
 )
 set(SOURCES
+	ErrorHip.cpp
 	DeviceHip.cpp
 	BackendHip.cpp
 )
