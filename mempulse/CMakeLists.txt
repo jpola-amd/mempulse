@@ -109,7 +109,7 @@ include(CMakePackageConfigHelpers)
 
 # Config file (from template below)
 configure_package_config_file(
-    ${CMAKE_SOURCE_DIR}/files/MempulseConfig.cmake.in
+    ${CMAKE_SOURCE_DIR}/resources/MempulseConfig.cmake.in
     "${CMAKE_CURRENT_BINARY_DIR}/MempulseConfig.cmake"
     INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Mempulse
 )
@@ -127,7 +127,7 @@ install(
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Mempulse
 )
 
-configure_file(${CMAKE_SOURCE_DIR}/files/mempulse.pc.in ${CMAKE_CURRENT_BINARY_DIR}/mempulse.pc @ONLY)
+configure_file(${CMAKE_SOURCE_DIR}/resources/mempulse.pc.in ${CMAKE_CURRENT_BINARY_DIR}/mempulse.pc @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/mempulse.pc 
 	DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
 )
