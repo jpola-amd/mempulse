@@ -1,7 +1,7 @@
 set(HEADERS
 	Authentificate.h  
 	BackendDrm.h  
-	check_drm.h  
+	CheckDrm.h  
 	Defines.h  
 	DeviceDrm.h  
 	DrmAmdgpu.h  

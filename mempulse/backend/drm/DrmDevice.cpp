@@ -1,5 +1,5 @@
 #include "DrmDevice.h"
-#include "check_drm.h"
+#include "CheckDrm.h"
 #include "mempulse/Logging.h"
 #include <xf86drm.h>
 #include <cassert>
