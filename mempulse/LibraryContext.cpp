@@ -37,7 +37,7 @@ LibraryContext::LibraryContext(MempulseBackend backend)
 		}
 
 #endif
-		if (!m_context)
+		if (!m_context) // fallback to HIP
 			m_context = createBackend(MEMPULSE_BACKEND_HIP);
 	} else {
 		m_context = createBackend(backend);
