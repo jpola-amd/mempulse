@@ -25,7 +25,14 @@ if (NOT HIP_DIR)
 endif()
 
 include("${CMAKE_SOURCE_DIR}/cmake/CompileOptions.cmake")
+include("${CMAKE_SOURCE_DIR}/cmake/CompilerFeatures.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/WindowsFileVersion.cmake")
+
+check_std_expected(HAVE_STD_EXPECTED)
+if (NOT HAVE_STD_EXPECTED)
+	message(FATAL_ERROR "std::expected not supported on this toolchain")
+	message(FATAL_ERROR "please, use newer version of compiler")
+endif()
 
 if (BUILD_BACKEND_DRM)
 	message(STATUS "Enable backend DRM (Linux)")
