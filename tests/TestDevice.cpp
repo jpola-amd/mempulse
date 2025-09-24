@@ -51,7 +51,8 @@ TEST_P(TestDevice, get_memory_info_device_0) {
 	err = MempulseGetDeviceMemoryInfo(context, 0, &info);
 	EXPECT_EQ(err, MEMPULSE_SUCCESS);
 
-	MempulsePrintDeviceMemoryInfo(info);
+	err = MempulsePrintDeviceMemoryInfo(&info);
+	EXPECT_EQ(err, MEMPULSE_SUCCESS);
 	EXPECT_GT(info.dedicatedTotal, 0);
 	EXPECT_GT(info.dedicatedUsed, 0);
 }
@@ -82,7 +83,8 @@ TEST_P(TestDevice, get_memory_usage_device_0) {
 	err = MempulseGetDeviceMemoryUsage(context, 0, &usage);
 	EXPECT_EQ(err, MEMPULSE_SUCCESS);
 
-	MempulsePrintDeviceMemoryUsage(usage);
+	err = MempulsePrintDeviceMemoryUsage(&usage);
+	EXPECT_EQ(err, MEMPULSE_SUCCESS);
 	EXPECT_GT(usage.free, 0);
 	EXPECT_GT(usage.total, 0);
 }

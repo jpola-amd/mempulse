@@ -140,18 +140,34 @@ MEMPULSE_API MempulseError MempulseGetDeviceMemoryUsage(
 	return MEMPULSE_SUCCESS;
 }
 
-void MempulsePrintDeviceMemoryInfo(
-		const MempulseDeviceMemoryInfo& deviceMemoryInfo) {
+MempulseError MempulsePrintDeviceMemoryInfo(
+		const MempulseDeviceMemoryInfo* deviceMemoryInfo) {
 	MEMPULSE_LOG_TRACE();
 
-	std::cout << deviceMemoryInfo << std::endl;
+	auto result = safeCall([&] {
+		if (!deviceMemoryInfo)
+			throw ErrorInvalidParameter("deviceMemoryInfo", "must be not nullptr");
+
+		std::cout << *deviceMemoryInfo << std::endl;
+	});
+	check(result);
+
+	return MEMPULSE_SUCCESS;
 }
 
-MEMPULSE_API void MempulsePrintDeviceMemoryUsage(
-		const MempulseDeviceMemoryUsage& deviceMemoryUsage)
+MempulseError MempulsePrintDeviceMemoryUsage(
+		const MempulseDeviceMemoryUsage* deviceMemoryUsage)
 {
 	MEMPULSE_LOG_TRACE();
 
-    std::cout << deviceMemoryUsage << std::endl;
+	auto result = safeCall([&] {
+		if (!deviceMemoryUsage)
+			throw ErrorInvalidParameter("deviceMemoryUsage", "must be not nullptr");
+
+    	std::cout << *deviceMemoryUsage << std::endl;
+	});
+	check(result);
+
+	return MEMPULSE_SUCCESS;
 }
 

@@ -115,11 +115,11 @@ MEMPULSE_API MempulseError MempulseGetDeviceMemoryUsage(
 		int deviceIndex,
 		MempulseDeviceMemoryUsage* deviceMemoryUsage);
 
-MEMPULSE_API void MempulsePrintDeviceMemoryInfo(
-		const MempulseDeviceMemoryInfo& deviceMemoryInfo);
+MEMPULSE_API MempulseError MempulsePrintDeviceMemoryInfo(
+		const MempulseDeviceMemoryInfo* deviceMemoryInfo);
 
-MEMPULSE_API void MempulsePrintDeviceMemoryUsage(
-		const MempulseDeviceMemoryUsage& deviceMemoryUsage);
+MEMPULSE_API MempulseError MempulsePrintDeviceMemoryUsage(
+		const MempulseDeviceMemoryUsage* deviceMemoryUsage);
 
 #ifdef __cplusplus
 } // extern "C"

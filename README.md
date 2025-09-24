@@ -63,7 +63,8 @@ int main(int /*argc*/, char** /*argv*/) {
         err = MempulseGetDeviceMemoryInfo(context, i, &info);
         check(err);
 
-        MempulsePrintDeviceMemoryInfo(info);
+        err = MempulsePrintDeviceMemoryInfo(&info);
+        check(err);
     }
 
     err = MempulseShutdown(context);
