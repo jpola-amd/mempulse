@@ -40,4 +40,8 @@
 # debug information files
 *.dwo
 
+.vscode
+*.swp
+
 build/
+compile_commands.json

@@ -1,0 +1,14 @@
+@PACKAGE_INIT@
+
+# If Mempulse itself requires other packages at *consumer* time, do:
+# include(CMakeFindDependencyMacro)
+# find_dependency(SomeDependency REQUIRED)
+
+# Load the imported targets for Mempulse
+include("${CMAKE_CURRENT_LIST_DIR}/MempulseTargets.cmake")
+
+# For convenience variables (optional)
+get_target_property(_mempulse_inc Mempulse::Mempulse INTERFACE_INCLUDE_DIRECTORIES)
+set(Mempulse_INCLUDE_DIRS "${_mempulse_inc}")
+
+# Nothing else needed; consumers link mempulse::mempulse

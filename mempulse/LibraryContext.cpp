@@ -1,0 +1,89 @@
+#include "LibraryContext.h"
+#include "Error.h"
+#include "Logging.h"
+
+#ifdef MEMPULSE_BUILD_BACKEND_D3DKMT
+#include "backend/d3dkmt/BackendD3dkmt.h"
+#endif
+
+#ifdef MEMPULSE_BUILD_BACKEND_HIP
+#include "backend/hip/BackendHip.h"
+#endif
+
+#ifdef MEMPULSE_BUILD_BACKEND_DRM
+#include "backend/drm/BackendDrm.h"
+#endif
+
+
+namespace mempulse {
+
+LibraryContext::LibraryContext(MempulseBackend backend)
+{
+	MEMPULSE_LOG_TRACE();
+
+	if (backend == MempulseBackend::MEMPULSE_BACKEND_ANY) {
+#if MEMPULSE_PLATFORM_WINDOWS
+		try {
+			m_context = createBackend(MEMPULSE_BACKEND_D3DKMT);
+		} catch(std::exception& e) {
+			MEMPULSE_LOG_DEBUG(e.what());
+		}
+#endif
+#if MEMPULSE_PLATFORM_LINUX
+		try {
+			m_context = createBackend(MEMPULSE_BACKEND_DRM);
+		} catch(std::exception& e) {
+			MEMPULSE_LOG_DEBUG(e.what());
+		}
+
+#endif
+		if (!m_context) // fallback to HIP
+			m_context = createBackend(MEMPULSE_BACKEND_HIP);
+	} else {
+		m_context = createBackend(backend);
+	}
+
+	if (!m_context) {
+		throw ErrorInvalidContext();
+	}
+}
+
+
+LibraryContext::BackendPtr LibraryContext::createBackend(MempulseBackend backend)
+{
+	MEMPULSE_LOG_TRACE();
+
+	switch (backend) {
+		case MempulseBackend::MEMPULSE_BACKEND_HIP:
+#ifdef MEMPULSE_BUILD_BACKEND_HIP
+			return std::make_unique<BackendHip>();
+#endif
+		break;
+		case MempulseBackend::MEMPULSE_BACKEND_DRM:
+#ifdef MEMPULSE_BUILD_BACKEND_DRM
+			return std::make_unique<BackendDrm>();
+#endif
+		break;
+		case MempulseBackend::MEMPULSE_BACKEND_D3DKMT:
+#ifdef MEMPULSE_BUILD_BACKEND_D3DKMT
+			return std::make_unique<BackendD3dkmt>();
+#endif
+		break;
+		default:
+			return nullptr;
+		break;
+	}
+
+	return nullptr;
+}
+
+LibraryContext* get_ctx(void* context) {
+	LibraryContext* ctx =  static_cast<LibraryContext*>(context);
+	if (!ctx)
+		throw ErrorInvalidParameter("context", "context is nullptr");
+
+	return ctx;
+}
+
+
+}
