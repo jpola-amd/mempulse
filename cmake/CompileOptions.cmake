@@ -1,4 +1,3 @@
-add_compile_options($<$<COMPILE_LANG_AND_ID:CXX,GNU>:-fno-elide-constructors>)
 add_compile_options($<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Wall>)
 add_compile_options($<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Wextra>)
 add_compile_options($<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Winit-self>)
@@ -7,7 +6,6 @@ add_compile_options($<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Woverloaded-virtual>)
 add_compile_options($<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Wuninitialized>)
 add_compile_options($<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Wmissing-declarations>)
 add_compile_options($<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Wstrict-aliasing>)
-add_compile_options($<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Wno-omit-frame-pointer>)
 
 add_compile_options($<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/EHsc>)
 add_compile_options($<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/W4>)
