@@ -16,7 +16,7 @@ target_include_directories(mempulse_backend_hip
 	PRIVATE ${CMAKE_SOURCE_DIR} 
 	PUBLIC ${hip_INCLUDE_DIRS}
 )
-target_link_libraries(mempulse_backend_hip PRIVATE hip::include)
+target_link_libraries(mempulse_backend_hip PUBLIC hip::include)
 
 target_link_libraries(mempulse_backend_hip 
 	PRIVATE hip::host
