@@ -16,7 +16,8 @@
             "cacheVariables": {
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/windows-debug",
                 "BUILD_EXAMPLES": "ON",
-                "BUILD_TESTS": "ON"
+                "BUILD_TESTS": "ON",
+                "HIP_DIR": "c:/opt/rocm/6.4.2"
             },
             "condition": {
                 "type": "equals",
@@ -40,7 +41,8 @@
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/windows-release",
                 "CMAKE_CXX_FLAGS_RELEASE": "/O2 /DNDEBUG",
                 "BUILD_EXAMPLES": "OFF",
-                "BUILD_TESTS": "OFF"
+                "BUILD_TESTS": "OFF",
+                 "HIP_DIR": "C:/opt/rocm/6.4.2"
             },
             "condition": {
                 "type": "equals",
