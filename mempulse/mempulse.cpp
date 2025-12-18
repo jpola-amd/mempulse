@@ -26,7 +26,8 @@ MempulseError MempulseShutdown(MempulseContext context) {
 
 	auto result = safeCall([&] {
 		LibraryContext* ctx = get_ctx(context);
-		delete ctx;
+		if (ctx != nullptr)
+			delete ctx;
 	});
 	check(result);
 
