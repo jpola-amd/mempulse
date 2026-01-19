@@ -38,7 +38,7 @@ DeviceD3dkmt::DeviceD3dkmt(const BackendD3dkmt& context, int deviceId)
     MEMPULSE_LOG_TRACE();
 }
 
-MempulseDeviceMemoryInfo DeviceD3dkmt::GetMemoryInfo() {
+MempulseDeviceMemoryInfo DeviceD3dkmt::GetMemoryInfoD3dkmt() {
     MEMPULSE_LOG_TRACE();
 
     LUID dx_luid;
@@ -68,6 +68,19 @@ MempulseDeviceMemoryInfo DeviceD3dkmt::GetMemoryInfo() {
     return memInfo;
 }
 
+MempulseDeviceMemoryInfo DeviceD3dkmt::GetMemoryInfo() {
+    MEMPULSE_LOG_TRACE();
+
+    try {
+        return GetMemoryInfoD3dkmt();
+    } catch (const Error& e) {  // Catch only errors from mempulse library. 
+                                // All other exceptions should be processed on other level
+        MEMPULSE_LOG_ERROR(e.what()); 
+
+        MEMPULSE_LOG_DEBUG("DeviceD3dktm::GetMemoryInfo fallback to HIP implementation");
+        return DeviceHip::GetMemoryInfo(); 
+    }
+}
 MempulseDeviceMemoryUsage DeviceD3dkmt::GetMemoryUsage() {
     MEMPULSE_LOG_TRACE();
 
