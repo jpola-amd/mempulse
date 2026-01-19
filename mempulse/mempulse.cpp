@@ -12,6 +12,8 @@ using namespace mempulse;
 MempulseError MempulseInitialize(MempulseContext* context, MempulseBackend backend) {
 	MEMPULSE_LOG_TRACE();
 
+	*context = nullptr; // in case of exception in initialization, context will be nullptr (required for lazy library shutdown)
+
 	auto result = safeCall([&] {
 		LibraryContext* ctx = new LibraryContext(backend);
 		*context = ctx;
@@ -25,7 +27,7 @@ MempulseError MempulseShutdown(MempulseContext context) {
 	MEMPULSE_LOG_TRACE();
 
 	auto result = safeCall([&] {
-		LibraryContext* ctx = get_ctx(context);
+		LibraryContext* ctx = static_cast<LibraryContext*>(context);
 		if (ctx != nullptr)
 			delete ctx;
 	});
