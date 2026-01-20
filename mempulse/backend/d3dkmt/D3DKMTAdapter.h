@@ -9,8 +9,8 @@ public:
 	D3DKMTAdapter(const LUID& luid);
 	~D3DKMTAdapter();
 
-	void close();
-                
+	void Close();
+
 	void CheckWddm30Caps();
 
 	D3DKMTAdapter(const D3DKMTAdapter&) = delete;

@@ -29,7 +29,7 @@ D3DKMTAdapter::~D3DKMTAdapter() {
 	MEMPULSE_LOG_TRACE();
 
 	try {
-		close();
+		Close();
 	} catch (const std::exception& e) {
 		MEMPULSE_LOG_ERROR(e.what());
 	} catch (...) {
@@ -37,16 +37,16 @@ D3DKMTAdapter::~D3DKMTAdapter() {
 	}
 }
 
-void D3DKMTAdapter::close() {
+void D3DKMTAdapter::Close() {
 	MEMPULSE_LOG_TRACE();
 
 	if (!m_isOpen)
 		return;
 
-	D3DKMT_CLOSEADAPTER close = {};
-	close.hAdapter = m_adapter;
+	D3DKMT_CLOSEADAPTER closeAdapter = {};
+	closeAdapter.hAdapter = m_adapter;
 
-	NTSTATUS status = D3DKMTCloseAdapter(&close);
+	NTSTATUS status = D3DKMTCloseAdapter(&closeAdapter);
 	check_d3dkmt(status, "D3DKMTAdapter: D3DKMTCloseAdapter");
 
 	m_isOpen = false;
