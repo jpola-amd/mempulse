@@ -31,7 +31,9 @@ D3DKMTAdapter::~D3DKMTAdapter() {
 	try {
 		close();
 	} catch (const std::exception& e) {
-		MEMPULSE_LOG_DEBUG(e.what());
+		MEMPULSE_LOG_ERROR(e.what());
+	} catch (...) {
+		MEMPULSE_LOG_ERROR("D3DKMTAdapter::~D3DKMTAdapter: unknown error");
 	}
 }
 
