@@ -12,6 +12,8 @@ public:
 
 	MempulseDeviceMemoryInfo GetMemoryInfo() override;
 	MempulseDeviceMemoryUsage GetMemoryUsage() override;
+private:
+	MempulseDeviceMemoryInfo GetMemoryInfoD3DKMT();
 };
 
 }  // namespace mempulse

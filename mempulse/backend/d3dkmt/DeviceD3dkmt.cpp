@@ -45,14 +45,20 @@ static LUID get_dx_luid(DeviceHip::Luid hipLuid) {
 DeviceD3dkmt::DeviceD3dkmt(const BackendD3dkmt& context, int deviceId)
     : DeviceHip(context, deviceId) {
     MEMPULSE_LOG_TRACE();
-
-    LUID dx_luid = get_dx_luid(luid());
-
-    D3DKMTAdapter adapter(dx_luid);
-    adapter.CheckWddm30Caps();
 }
 
 MempulseDeviceMemoryInfo DeviceD3dkmt::GetMemoryInfo() {
+    try {
+        return GetMemoryInfoD3DKMT();
+    } catch (const std::exception& e) {
+        MEMPULSE_LOG_DEBUG(e.what());
+
+        MEMPULSE_LOG_DEBUG("GetMemoryInfo: fallback to hip");
+        return DeviceHip::GetMemoryInfo();
+    }
+}
+
+MempulseDeviceMemoryInfo DeviceD3dkmt::GetMemoryInfoD3DKMT() {
     MEMPULSE_LOG_TRACE();
 
     LUID dx_luid = get_dx_luid(luid());
