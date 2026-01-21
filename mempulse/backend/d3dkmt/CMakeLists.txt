@@ -1,11 +1,13 @@
 set(HEADERS
 	ErrorD3dkmt.h
 	DeviceD3dkmt.h
+	D3DKMTAdapter.h
 	BackendD3dkmt.h
 )
 set(SOURCES
 	ErrorD3dkmt.cpp
 	DeviceD3dkmt.cpp
+	D3DKMTAdapter.cpp
 	BackendD3dkmt.cpp
 )
 

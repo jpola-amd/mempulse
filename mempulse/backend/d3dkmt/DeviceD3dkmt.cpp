@@ -3,6 +3,7 @@
 #include <winternl.h>  // Add this for NT_SUCCESS macro
 #pragma comment(lib, "gdi32.lib")
 
+#include "D3DKMTAdapter.h"
 #include "DeviceD3dkmt.h"
 #include "ErrorD3dkmt.h"
 #include "BackendD3dkmt.h"
@@ -33,18 +34,28 @@ static inline UINT64 GetTotalMemory(const D3DKMT_QUERYSTATISTICS_MEMORY_USAGE& u
            usage.StandbyBytes;
 }
 
+static LUID get_dx_luid(DeviceHip::Luid hipLuid) {
+    LUID dx_luid;
+    static_assert(sizeof(dx_luid) == hipLuid.size());
+    memcpy(&dx_luid, hipLuid.data(), hipLuid.size());
+
+    return dx_luid;
+}
+
 DeviceD3dkmt::DeviceD3dkmt(const BackendD3dkmt& context, int deviceId)
     : DeviceHip(context, deviceId) {
     MEMPULSE_LOG_TRACE();
+
+    LUID dx_luid = get_dx_luid(luid());
+
+    D3DKMTAdapter adapter(dx_luid);
+    adapter.CheckWddm30Caps();
 }
 
 MempulseDeviceMemoryInfo DeviceD3dkmt::GetMemoryInfo() {
     MEMPULSE_LOG_TRACE();
 
-    LUID dx_luid;
-    DeviceHip::Luid hipLuid = luid();
-    static_assert(sizeof(dx_luid) == hipLuid.size());
-    memcpy(&dx_luid, hipLuid.data(), hipLuid.size());
+    LUID dx_luid = get_dx_luid(luid());
 
     MempulseDeviceMemoryInfo memInfo;
     memset(&memInfo, 0, sizeof(memInfo));
