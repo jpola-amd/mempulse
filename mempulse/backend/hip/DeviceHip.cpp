@@ -3,7 +3,7 @@
 #include "ErrorHip.h"
 #include "mempulse/Assert.h"
 #include "mempulse/Logging.h"
-
+#include <cstring> // for memcpy
 namespace mempulse {
 
 DeviceHip::DeviceHip(const BackendHip&, int deviceId)
@@ -16,7 +16,7 @@ DeviceHip::DeviceHip(const BackendHip&, int deviceId)
 	check_hip(err, "can't get device properties");
 
     assert_with_message(m_luid.size() == sizeof(m_deviceProperties.luid), "different LUID sizes");
-	memcpy(m_luid.data(), m_deviceProperties.luid, m_luid.size());
+	std::memcpy(m_luid.data(), m_deviceProperties.luid, m_luid.size());
 }
 
 MempulseDeviceMemoryInfo DeviceHip::GetMemoryInfo()

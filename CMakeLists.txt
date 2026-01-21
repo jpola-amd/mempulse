@@ -28,7 +28,7 @@ endif()
 include("${CMAKE_SOURCE_DIR}/cmake/CompileOptions.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/CompilerFeatures.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/WindowsFileVersion.cmake")
-include("${CMAKE_SOURCE_DIR}/cmake/FindHIP.cmake")
+include("${CMAKE_SOURCE_DIR}/cmake/FindHip.cmake")
 
 AddHIP(HIP_DIR ${HIP_DIR})
 check_std_expected(HAVE_STD_EXPECTED)
