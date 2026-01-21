@@ -51,7 +51,7 @@ MempulseDeviceMemoryInfo DeviceD3dkmt::GetMemoryInfo() {
     try {
         return GetMemoryInfoD3DKMT();
     } catch (const std::exception& e) {
-        MEMPULSE_LOG_ERROR(e.what());
+        MEMPULSE_LOG_DEBUG(e.what());
 
         MEMPULSE_LOG_DEBUG("GetMemoryInfo: fallback to hip");
         return DeviceHip::GetMemoryInfo();
