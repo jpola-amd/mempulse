@@ -128,6 +128,29 @@ Should be included with Windows Driver Kit (WDK).
 cmake -S . -B build
 ```
 
+It is possible to specify additional parameters via -D 
+
+| Option                       | Description                                          | Default    |
+| ---------------------------- | ---------------------------------------------------- | ---------- |
+| `MEMPULSE_EXPORT_API`        | Export dll symbols                                   | `ON`       |
+| `BUILD_BACKEND_DRM`          | Build DRM backend (Linux only)                       | `${UNIX}`  |
+| `BUILD_BACKEND_HIP`          | Build HIP backend                                    | `ON`       |
+| `BUILD_BACKEND_D3DKMT`       | Build D3D KMT backend (Windows only)                 | `${WIN32}` |
+| `BUILD_TESTS`                | Build tests                                          | `ON`       |
+| `BUILD_APPLICATION`          | Build command line application                       | `ON`       |
+| `ENABLE_ASAN`                | Enable address sanitizer via `libasan`               | `OFF`      |
+| `FORCE_COLORED_OUTPUT`       | Force GCC/LLVM diagnostic color output               | `OFF`      |
+| `ENABLE_INTERNAL_HIP_MODULE` | Build project with self-shipped CMake module for HIP | `OFF`      |
+| `HIP_DIR`                    | Path to rocm `hip-config.cmake` file                 | `""`       |
+
+
+Example of building mempulse library on windows, with ROCM version 6.4. Installation directory is c:/tmp/mempule
+
+```
+cmake -DHIP_DIR=/c/Program\ Files/AMD/ROCm/7.1/lib/cmake/hip -DCMAKE_INSTALL_PREFIX=/c/tmp/mempulse -S . -B build
+
+```
+
 ## Build 
 ```
 cmake --build build --config Release
