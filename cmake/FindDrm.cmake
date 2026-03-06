@@ -1,5 +1,5 @@
 # FindDrm.cmake
-#
+# Install libdrm-dev or equivalent development package to provide the necessary files.
 # CMake Find module for DRM libraries.
 # Provides imported targets:
 #   Drm::Drm        – core libdrm
