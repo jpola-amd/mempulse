@@ -36,6 +36,12 @@ Example of cmake for integration with project [examples/CMakeLists.txt](examples
 
 Full project may be found in `example` directory.
 
+### Environment variables
+
+* `MEMPULSE_TRIM_VISIBLE_MEMORY` - optional soft cap for reported local/dedicated memory.
+    Useful for experiments that intentionally avoid allocating close to the full visible budget.
+    Accepts raw bytes or units like `56GiB`, `60GB`, `1024MiB`.
+
 
 ```cpp
 #include "mempulse/mempulse.h"
