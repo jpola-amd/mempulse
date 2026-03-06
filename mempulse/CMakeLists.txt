@@ -30,6 +30,7 @@ set(HEADERS
 set(SOURCES
 	Error.cpp  
 	LibraryContext.cpp
+	Logging.cpp
 	mempulse.cpp  
 	Utils.cpp
 )

@@ -1,6 +1,6 @@
 #pragma once
 
-static int MEMPULSE_LOGGING_LEVEL = 1;
+extern int MEMPULSE_LOGGING_LEVEL;
 
 #include <iostream>
 #define MEMPULSE_LOG_TRACE()    if (MEMPULSE_LOGGING_LEVEL >= 3) std::cout << "[TRACE] " << __FILE__ << ":" << __LINE__ << " " << __func__ << "\n"
