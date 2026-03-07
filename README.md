@@ -140,34 +140,41 @@ It is possible to specify additional parameters via -D
 | `BUILD_APPLICATION`          | Build command line application                       | `ON`       |
 | `ENABLE_ASAN`                | Enable address sanitizer via `libasan`               | `OFF`      |
 | `FORCE_COLORED_OUTPUT`       | Force GCC/LLVM diagnostic color output               | `OFF`      |
-| `ENABLE_INTERNAL_HIP_MODULE` | Build project with self-shipped CMake module for HIP | `OFF`      |
-| `HIP_DIR`                    | Path to rocm `hip-config.cmake` file                 | `""`       |
+| `ENABLE_INTERNAL_HIP_MODULE` | Internal HIP dependency handling                     | `OFF`      |
+| `HIP_DIR`                    | Path to ROCm `hip-config.cmake` file                 | `""`       |
+| `HIP_SDK`                    | Path to ROCm root directory                          | `""`       |
 
 
-Example of building mempulse library on windows, with ROCM version 6.4. Installation directory is c:/tmp/mempule
-
-```
-cmake -DHIP_DIR=/c/Program\ Files/AMD/ROCm/7.1/lib/cmake/hip -DCMAKE_INSTALL_PREFIX=/c/tmp/mempulse -S . -B build
-
-```
-
-### Internal HIP cmake module
-
-
-`mempulse` ships with an internal CMake module: `cmake/FindHIP.cmake`.
-
-This internal module does **not** perform any library discovery or validation.
-Instead, it assumes that the HIP headers and runtime libraries are already
-available in `HIP_DIR` path (include, libs and runtime).
-
-The primary purpose of this module is to support project integrators who do not
-want to rely on the mainstream ROCm HIP CMake package and simply want to link
-against HIP from a predefined location.
-
-Example of configuring project for windows:
+Example of building mempulse library on windows, with ROCM version 7.1. 
+Installation directory is c:/tmp/mempulse
 
 ```
-cmake -S . -DENABLE_INTERNAL_HIP_MODULE=1 -B build -DHIP_DIR=/c/Program\ Files/AMD/ROCm/7.1/
+cmake -DHIP_DIR=c:/Program\ Files/AMD/ROCm/7.1/lib/cmake/hip -DCMAKE_INSTALL_PREFIX=c:/tmp/mempulse -S . -B build
+
+```
+
+### Internal HIP Dependency Handling
+
+`mempulse` can manage the HIP dependency internally using the
+`cmake/AddHip.cmake` module.
+
+This internal mechanism does **not** perform any HIP installation discovery
+or validation. Instead, it assumes that the HIP SDK (headers, libraries, and
+runtime) is already available at the path specified by `HIP_DIR`.
+
+The main purpose of this mechanism is to support project integrators who do
+not want to depend on the standard ROCm HIP CMake package and prefer to link
+against a predefined HIP SDK location.
+
+To enable the internal HIP handling:
+
+1. Enable the `ENABLE_INTERNAL_HIP_MODULE` CMake option.
+2. Set the `HIP_SDK` variable to the root directory of the HIP SDK.
+
+Example for windows:
+
+```
+cmake -S . -DENABLE_INTERNAL_HIP_MODULE=1 -B build -DHIP_SDK=c:/Program\ Files/AMD/ROCm/7.1/
 ```
 
 ## Build 
